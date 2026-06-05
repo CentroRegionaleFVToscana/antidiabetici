@@ -11,7 +11,7 @@ rm(list=ls(all.names=TRUE))
 
 #set the directory where the file is saved as the working directory
 if (!require("rstudioapi")) install.packages("rstudioapi")
-hisdir <- setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+thisdir <- setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 thisdir <- setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
 TEST <- T
@@ -34,3 +34,4 @@ source(paste0(thisdir,"/p_parameters/7_parameters_postprocessing.R"))
 # source(paste0(thisdir,"/p_steps/01_T2_10_create_conceptsets.R"))
 # source(paste0(thisdir,"/p_steps/01_T2_20_create_spells.R"))
 # source(paste0(thisdir,"/p_steps/01_T2_30_create_persons.R"))
+# source(paste0(thisdir,"/p_steps/05_T4_10_cohort_characteristics.R"))

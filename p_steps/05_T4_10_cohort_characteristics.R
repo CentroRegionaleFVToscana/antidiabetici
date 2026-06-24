@@ -1,11 +1,13 @@
 # author: Sabrina Giometto
 
-# v 1.0 05 Giu 2026
+# v 1.0 05 Giu 2026 Creation of D5 started
+
+# v 1.1 24 Giu 2026 Creation of D5 completed
 
 #########################################
 
 if (TEST){
-  testname <- "test_D5_cohort_characteristics"
+  testname <- "test_D5_Table_1"
   thisdirinput <- file.path(dirtest,testname)
   thisdiroutput <- file.path(dirtest,testname,"g_output")
   dir.create(thisdiroutput, showWarnings = F)
@@ -14,56 +16,56 @@ if (TEST){
   thisdiroutput <- dirtemp
 }
 
-# Create simulated D3
 
-# set number of persons
-Npersons <- 5000
-# create base 
-data <- data.table::data.table(person_id = 1:Npersons)
-# person_id 
-data[, person_id := paste0("000000",as.character(seq_len(.N)))]
-data[, person_id := paste0("P",substr(person_id, nchar(person_id) - 6, 
-                                      nchar(person_id)))]
-# gender
-set.seed(1234)
-data[, genere := as.character(sample(1:2, Npersons, replace = TRUE, 
-                                     prob = c(.5,.5)))]
-data[, genere := fifelse(genere == "1","M","F")]
-# eta
-data[, age := round(rnorm(Npersons, mean = 50, sd = 15),0)]
-# covariates at t0: binary
-covariates_binary <- c("met", "metass", "antidiabother", "CV", "cerebro", 
-                       "Cvrisk", "HF", "renal")
+# load data
+data <- readRDS(file = file.path(thisdirinput, "/D3_coorte_con_caratterizzazione.rds"))
+
+
+# Create D5 with sociodemographic characteristics
+D5_nocov <- data[, .(
+              N          = .N,
+              age_median = median(age),
+              age_q1 = quantile(age, probs = 0.25),
+              age_q3 = quantile(age, probs = 0.75),
+              Age_18_44_N = sum(ageband=="18-44"),
+              Age_18_44_p = round(sum(ageband=="18-44")/.N,3)*100,
+              Age_45_64_N = sum(ageband=="45-64"),
+              Age_45_64_p = round(sum(ageband=="45-64")/.N,3)*100,
+              Age_55_74_N = sum(ageband=="65-74"),
+              Age_55_74_p = round(sum(ageband=="65-74")/.N,3)*100,
+              Age_75over_N = sum(ageband=="75+"),
+              Age_75over_p = round(sum(ageband=="75+")/.N,3)*100,
+              genere_F_N = sum(genere=="F"),
+              genere_F_p = round(sum(genere=="F")/.N,3)*100),
+              .(period, ASL)]
+
+# create D5 with binary covariates
+D5_cov <- NULL
 
 for (i in covariates_binary) {
-  set.seed(1111)
-  cov <- seq(0,1)
-  probcov = runif(1, min = 0, max = 1)
-  totprob = sum(probcov)
-  probcov = c(probcov, 1 - totprob)
-  data[, cov := sample(cov, Npersons, replace = TRUE, prob = probcov)]
-  setnames(data,"cov",i)
+  
+  tmp <- data[, .(
+              N = .N,
+              tmp_N = sum(get(i)==1),
+              tmp_p = round(sum(get(i)==1)/.N,3)*100),
+              .(period, ASL)]
+  
+  setnames(tmp,"tmp_N",paste0(i, "_N"))
+  setnames(tmp,"tmp_p",paste0(i, "_p"))
+  
+  if (is.null(D5_cov)) {
+    
+    D5_cov <- tmp
+    
+  } else {
+    
+    D5_cov <- merge(D5_cov, tmp, by = c("period", "ASL", "N"))
+  }
+  
 }
 
-data[, period:=sample(c("pre", "nota", "modifica"), Npersons, replace = TRUE, 
-                      prob = c(rep(0.33, 3)))]
+# create the final D5 by merging the previous two
+D5 <- merge(D5_nocov, D5_cov, by = c("period", "ASL", "N"), all = F)
 
-data[, AV:=sample(c("CE", "NO", "SE"), Npersons, replace = TRUE, 
-                      prob = c(rep(0.33, 3)))]
-
-##################
-
-# Create D5
-
-data[, .(
-  N          = .N,
-  age_median = median(age),
-  age_q1 = quantile(age, probs = 0.25),
-  age_q3 = quantile(age, probs = 0.75)),
-  colonna]
-
-
-
-
-
-
+# save
+saveRDS(D5, file = paste0(thisdiroutput, "/D5.rds"))

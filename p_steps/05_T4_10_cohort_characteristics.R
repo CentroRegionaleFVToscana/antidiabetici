@@ -31,8 +31,8 @@ D5_nocov <- data[, .(
               Age_18_44_p = round(sum(ageband=="18-44")/.N,3)*100,
               Age_45_64_N = sum(ageband=="45-64"),
               Age_45_64_p = round(sum(ageband=="45-64")/.N,3)*100,
-              Age_55_74_N = sum(ageband=="65-74"),
-              Age_55_74_p = round(sum(ageband=="65-74")/.N,3)*100,
+              Age_65_74_N = sum(ageband=="65-74"),
+              Age_65_74_p = round(sum(ageband=="65-74")/.N,3)*100,
               Age_75over_N = sum(ageband=="75+"),
               Age_75over_p = round(sum(ageband=="75+")/.N,3)*100,
               genere_F_N = sum(genere=="F"),
@@ -40,6 +40,9 @@ D5_nocov <- data[, .(
               .(period, ASL)]
 
 # create D5 with binary covariates
+covariates_binary <- c("met", "antidiabother", "CV", "cerebro", "aop", "Cvrisk",
+                        "HF", "renal")
+
 D5_cov <- NULL
 
 for (i in covariates_binary) {
@@ -68,4 +71,5 @@ for (i in covariates_binary) {
 D5 <- merge(D5_nocov, D5_cov, by = c("period", "ASL", "N"), all = F)
 
 # save
-saveRDS(D5, file = paste0(thisdiroutput, "/D5.rds"))
+saveRDS(D5, file = paste0(thisdiroutput, "/D5_Table1.rds"))
+write.csv(D5, file = paste0(thisdiroutput, "/D5_Table1.csv"))

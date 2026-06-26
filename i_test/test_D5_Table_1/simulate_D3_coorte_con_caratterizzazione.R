@@ -42,8 +42,8 @@ data[, ageband := ifelse(age >= 18 & age <=44, "18-44",
                                        ifelse(age>= 75, "75+", NA))))]
 
 # covariates at t0: binary
-covariates_binary <- c("met", "metass", "antidiabother", "CV", "cerebro", 
-                       "Cvrisk", "HF", "renal")
+covariates_binary <- c("met", "antidiabother", "CV", "cerebro", "aop", "Cvrisk",
+                        "HF", "renal")
 
 for (i in covariates_binary) {
   # set.seed(1111)

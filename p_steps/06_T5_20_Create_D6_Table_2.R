@@ -1,10 +1,12 @@
-############################################################
-#                                                          #
-####         D6_Table_2_baseline_cohort                         #
-#                                                          #
-############################################################
 
-# authors: Rosa Gini
+#### D6_Table_1_cohort_characteristics ----
+
+
+# authors: Rosa Gini, Sabrina Giometto
+
+# v 1.2
+
+# adapting to study on antidiabetics
 
 # v 1.1
 
@@ -18,325 +20,184 @@
 
 # 8 Jun 2026
 
-print('CREATE D6_Table_2_baseline_cohort')
 
-#########################################
+print('CREATE D6_Table_1_cohort_characteristics')
+
+
 # assign directories
 
 if (TEST){ 
-  testname <- "test_18_D6_Table_2"
+  testname <- "test_D6_Table_1"
   thisdirinput <- paste0(file.path(dirtest, testname), "/")
   thisdiroutput <- file.path(dirtest,testname,"g_output")
   dir.create(thisdiroutput, showWarnings = F)
-  thisdirsettings <- thisdirinput
-  settings <- readRDS(file.path(thisdirsettings,"SETTINGS.rds"))
-  thisdatasources_for_postprocessing <- settings$ds
-  thisdatasource <- settings$ds
-  thisdirarchive <- thisdirinput
-  thisfolder_submission <- list()
-  thisfolder_submission[[thisdatasource]] <- thisdirinput
 }else{
-    thisdirinput <- direxp
-    thisdiroutput <- direxp
-    thisdirsettings <- dirpargen
-    settings <- readRDS(file.path(thisdirsettings,"SETTINGS.rds"))
-    thisdatasources_for_postprocessing <- settings$ds
-    thisdirarchive <- dirarchive
-    thisfolder_submission <- list()
-    thisfolder_submission[[thisdatasource]] <- thisdirinput
+  thisdirinput <- direxp
+  thisdiroutput <- direxp
 }
 
-#########################################
 # load
+D5 <- read.csv(file.path(
+                  thisdirinput,
+                  "D5_Table1.csv"))
 
-# from settings: create the list of subpopulations
-settings <- readRDS(file.path(thisdirsettings,"SETTINGS.rds"))
-thissubpopulations <- unique(settings[,.(subpop)])
-thissubpopulations <- unlist(strsplit(trimws(thissubpopulations), " +"))
+D5 <- as.data.table(D5)
 
-
-#########################################
-
-print(paste("Now creating: D6_Table_2_baseline_cohort"))
-
-# this header works both locally and on DRE
-# create the list list_ds_analysed of all datasources including their subpopulations (ds_subpop)
-# store all the data in a list of datasets indexed by ds_subpop
-
- filetoread <- file.path(
-      thisfolder_submission[[thisds]],
-      paste0("D5_Table_2_XXX.csv")
-    )
     
-    if (file.exists(filetoread)) {
-      
-      temp <- fread(filetoread, colClasses = "character")
-      
-      suffix <- paste0("_",thisds,thissuffix)
-      name_suffix[[suffix]] <- fifelse(unlist(PARPOP[ds == thisds & subpop == thissubpop,.(name_in_tables)]) == "", suffix, unlist(PARPOP[ds == thisds & subpop == thissubpop,.(name_in_tables)]))
-      tab_nice_all[[suffix]] <- temp
-      list_ds_analysed <- c(list_ds_analysed, suffix)
-    }else{
-      errmess <- paste("File",filetoread,"does not exist in the export folder of", thisds)
-      stop(errmess)
-    }
-
-##################
-# HELPERS
+# helpers
 
 add_empty_row <- function(j){
+  
   j <- j + 1
   tab_nice[, cell := ""]
   setnames(tab_nice, "cell", paste0("cell_",j))
   return(j)
 }
 
-
-
 descriptive_N_perc <- function(j, covar) {
+  
   j <- j + 1
-  varN <- paste0(covar,"N_")
-  varP <- paste0(covar,"perc_")
-  tab_nice[, cell := paste0(get(varN), " (",get(varP),"%)")]
+  varN <- paste0(covar,"N")
+  varP <- paste0(covar,"p")
+  tab_nice[, cell := paste0(
+    formatC(get(varN), format = "f", digits = 0, big.mark = ".", 
+            decimal.mark = ","), " (",
+    formatC(get(varP), format = "f", digits = 1, big.mark = ".", 
+            decimal.mark = ","),"%)"
+  )]
   setnames(tab_nice, "cell", paste0("cell_",j))
   return(j)
 }
 
-descriptive_lab_values <- function(j, covar){
+descriptive_median_q1q3 <- function(j, covar) {
+  
   j <- j + 1
-  varM <- paste0(covar,"_mean_")
-  varSD <- paste0(covar,"_sd_")
-  tab_nice[, cell := paste0(get(varM), " (",get(varSD),")")]
-  setnames(tab_nice, "cell", paste0("cell_",j))
-  j <- j + 1
-  varM <- paste0(covar,"_median_")
-  varQ1 <- paste0(covar,"_q1_")
-  varQ3 <- paste0(covar,"_q3_")
-  tab_nice[, cell := paste0(get(varM), " (",get(varQ1),"-",get(varQ3),")")]
-  setnames(tab_nice, "cell", paste0("cell_",j))
-  j <- j + 1
-  varN <- paste0(covar,"_missingN_")
-  varP <- paste0(covar,"_missingperc_")
-  tab_nice[, cell := paste0(get(varN), " (",get(varP),"%)")]
-  setnames(tab_nice, "cell", paste0("cell_",j))
+  varM <- paste0(covar,"_median")
+  varQ1 <- paste0(covar,"_q1")
+  varQ3 <- paste0(covar,"_q3")
+  tab_nice[, cell := paste0(get(varM), " (", get(varQ1), " - ", 
+                            get(varQ3), ")")]
+  setnames(tab_nice, "cell", paste0("cell_", j))
   return(j)
 }
 
 
-##########################################
-# WRITE TABLE(S)
 
 #########################################
 # POPULATE ROWS
 
-tab_nice <- data.table()
-for (suffix in list_ds_analysed) {
-  temp <- copy(tab_nice_all[[suffix]])
-  temp[, name_ds_subpop := name_suffix[[suffix]]]
-  tab_nice  <- rbind(tab_nice, temp, fill = T)
-}
-
+tab_nice <- copy(D5)
+ 
 # row 0
-
-row_header_1 <- c("Datasource")
-j <- 0
-tab_nice[, cell := name_ds_subpop]
-setnames(tab_nice, "cell", paste0("cell_",j))
-
+tab_nice     <- copy(D5)
+row_header_1 <- c()
+j            <- -1
 
 # row 1
-
-row_header_1 <- c(row_header_1,                  
-                  "" 
-)
-
+row_header_1 <- c(row_header_1, "Periodo")
 j <- j + 1
-tab_nice[stratum == "overall", cell := "Overall"]
-tab_nice[stratum == "exp0", cell := "Dpp4-i"]
-tab_nice[stratum == "exp1", cell := "Dapagliflozin"]
-setnames(tab_nice, "cell", paste0("cell_",j))
-
+tab_nice[, cell := period]
+setnames(tab_nice, "cell", paste0("cell_", j))
 
 # row 2
-
-row_header_1 = c(row_header_1,                  
-                 "N" 
-)
-
+row_header_1 <- c(row_header_1, "ASL")
 j <- j + 1
-tab_nice[, cell := N_]
-setnames(tab_nice, "cell", paste0("cell_",j))
+tab_nice[, cell := ASL]
+setnames(tab_nice, "cell", paste0("cell_", j))
 
-# row 2
-
-row_header_1 <- c(row_header_1,  
-                  "Characteristics")
-
-j <- add_empty_row(j)
-
-# rows 4-6
-
-row_header_1 <- c(row_header_1,  
-                  "Age (years)", 
-                  "Mean (SD)", 
-                  "Median (Q1 - Q3)"
-)
-
-j <- add_empty_row(j)
-
+# row 3
+row_header_1 <- c(row_header_1, "Totale nuovi utilizzatori")
 j <- j + 1
-tab_nice[, cell := paste0(age_at_t0_mean_, " (",age_at_t0_sd_,")")]
-setnames(tab_nice, "cell", paste0("cell_",j))
+tab_nice[, cell := as.character(N)]
+setnames(tab_nice, "cell", paste0("cell_", j))
 
-j <- j + 1
-tab_nice[, cell := paste0(age_at_t0_median_, " (",age_at_t0_q1_, "-",age_at_t0_q3_,")")]
-setnames(tab_nice, "cell", paste0("cell_",j))
-
-# rows 7-10
-
-row_header_1 <- c(row_header_1,  
-                  "Gender",
-                  "Male: N (%)", 
-                  "Female: N (%)",
-                  "Other: O (%)"
-)
-
+# row 4-5
+row_header_1 <- c(row_header_1, "Età alla data indice,", "  mediana (Q1 - Q3)")
 j <- add_empty_row(j)
+j <- descriptive_median_q1q3(j, "age")
 
-j <- descriptive_N_perc(j, "gender_M_")
-j <- descriptive_N_perc(j, "gender_F_")
-j <- descriptive_N_perc(j, "gender_O_")
-
-
-# rows 11-13
-
-row_header_1 <- c(row_header_1,  
-                  "Duration of diabetes",
-                  "Mean (SD)",
-                  "Median (IQ range)"
-)
-
-j <- add_empty_row(j)
-
-j <- j + 1
-tab_nice[, cell := paste0(yrsdiab_mean_, " (",yrsdiab_sd_,")")]
-setnames(tab_nice, "cell", paste0("cell_",j))
-
-j <- j + 1
-varM <- "yrsdiab_median_"
-varQ1 <- "yrsdiab_q3_"
-varQ3 <- "yrsdiab_q3_"
-tab_nice[, cell := paste0(get(varM), " (",get(varQ1),"-",get(varQ3),")")]
-setnames(tab_nice, "cell", paste0("cell_",j))
-
-
-# rows 14-22
-
-row_header_1 <- c(row_header_1,  
-                  "Missing data pre-imputation",
-                  "HbA1c",
-                  "Mean (SD)",
-                  "Median (IQ range)",
-                  "Missing N (%)",
-                  "eGFR",
-                  "Mean (SD)",
-                  "Median (IQ range)",
-                  "Missing N (%)"  )
-
-j <- add_empty_row(j)
-
-j <- add_empty_row(j)
-j <- descriptive_lab_values(j, "HbA1c")
-
-j <- add_empty_row(j)
-j <- descriptive_lab_values(j, "EGFR")
-
-
-# rows 23-27
-
+# row 6-10
 row_header_1 <- c(row_header_1, 
-                  "Tobacco use",
-                  "None",
-                  "Past",
-                  "Current",
-                  "missing N (%)" )
+                  "Classi età alla data indice", 
+                  "  18-44, n (%)", 
+                  "  45-64, n (%)", 
+                  "  65-74, n (%)", 
+                  "  >75, n (%)")
+
+j <- add_empty_row(j)
+j <- descriptive_N_perc(j, "Age_18_44_")
+j <- descriptive_N_perc(j, "Age_45_64_")
+j <- descriptive_N_perc(j, "Age_65_74_")
+j <- descriptive_N_perc(j, "Age_75over_")
+
+# row 11
+row_header_1 <- c(row_header_1,
+                  "Genere F registrato alla data indice, n (%)")
+
+j <- descriptive_N_perc(j, "genere_F_")
+
+# row 12
+row_header_1 <- c(row_header_1,
+                  "Uso di metformina nei 2 anni precedenti la data indice, n 
+                  (%)")
+
+j <- descriptive_N_perc(j, "met_")
+
+# row 13
+row_header_1 <- c(row_header_1,
+                  "Uso di altri antidiabetici nei 2 anni precedenti la data 
+                  indice (esclusa metformina), n (%)")
+
+j <- descriptive_N_perc(j, "antidiabother_")
+
+# row 14
+row_header_1 <- c(row_header_1,
+                  "Comorbidità")
 
 j <- add_empty_row(j)
 
-j <- descriptive_N_perc(j, "Tobacco_use_0_")
-j <- descriptive_N_perc(j, "Tobacco_use_1_")
-j <- descriptive_N_perc(j, "Tobacco_use_2_")
-j <- descriptive_N_perc(j, "Tobacco_use_missing")
+# row 15
+row_header_1 <- c(row_header_1,
+                  "Malattia cardiovascolare, n (%)")
 
+j <- descriptive_N_perc(j, "CV_")
 
-# rows 28-48
+# row 16
+row_header_1 <- c(row_header_1,
+                  "Malattia cerebrovascolare, n (%)")
 
-row_header_1 <- c(row_header_1,  
-                  "(Co)Morbidities")
+j <- descriptive_N_perc(j, "cerebro_")
 
-j <- add_empty_row(j)
+# row 17
+row_header_1 <- c(row_header_1,
+                  "Arteriopatia periferica, n (%)")
 
-for (cov in covar_comorb) {
-  name_cov <- unlist(parameters_this_step[values == cov,.(get("name in protocol"))])
-  row_header_1 <- c(row_header_1,  
-                    name_cov)
-  j <- descriptive_N_perc(j, paste0(cov,"_"))
-  
-}
+j <- descriptive_N_perc(j, "aop_")
 
-# rows 45-68
+# row 18
+row_header_1 <- c(row_header_1,
+                  "Rischio CV elevato, n (%)")
 
-row_header_1 <- c(row_header_1,  
-                  "Comedications")
+j <- descriptive_N_perc(j, "Cvrisk_")
 
-j <- add_empty_row(j)
+# row 19
+row_header_1 <- c(row_header_1,
+                  "Scompenso cardiaco, n (%)")
 
-for (cov in covar_comed) {
-  name_cov <- unlist(parameters_this_step[values == cov,.(get("name in protocol"))])
-  row_header_1 <- c(row_header_1,  
-                    name_cov)
-  j <- descriptive_N_perc(j, paste0(cov,"_"))
-}
+j <- descriptive_N_perc(j, "HF_")
 
+# row 20
+row_header_1 <- c(row_header_1,
+                  "Malattia renale cronica, n (%)")
 
-# rows 69-72
-
-row_header_1 <- c(row_header_1,  
-                  "Established ACVD")
-
-j <- add_empty_row(j)
-
-for (cov in covar_est_ACVD) {
-  name_cov <- unlist(parameters_this_step[values == cov,.(get("name in protocol"))])
-  row_header_1 <- c(row_header_1,  
-                    name_cov)
-  j <- descriptive_N_perc(j, paste0(cov,"_"))
-}
-
-# rows 73-75
-
-row_header_1 <- c(row_header_1,  
-                  "ACVD Risk factors")
-
-j <- add_empty_row(j)
-
-for (cov in covar_rf_ACVD) {
-  name_cov <- unlist(parameters_this_step[values == cov,.(get("name in protocol"))])
-  row_header_1 <- c(row_header_1,  
-                    name_cov)
-  j <- descriptive_N_perc(j, paste0(cov,"_"))
-}
-
-
-# View(tab_nice[, .SD, .SDcols = patterns("^cell_")])
-
+j <- descriptive_N_perc(j, "renal_")
 
 
 #########################################
 # KEEP CELLS
 
 cell_cols <- grep("^cell_", names(tab_nice), value = TRUE)
-tokeep <- c("ds", "stratum", cell_cols)
+tokeep <- c("period", "ASL", cell_cols)
 tab_nice <- tab_nice[, ..tokeep]
 
 
@@ -347,7 +208,7 @@ tab_nice <- tab_nice[, ..tokeep]
 
 tab_nice <- melt(
   tab_nice,
-  id.vars = c("ds","stratum"),
+  id.vars = c("period", "ASL"),
   measure.vars = patterns(
     cell = "^cell_[0-9]+$"
   ),
@@ -356,14 +217,14 @@ tab_nice <- melt(
 
 tab_nice[, rownum := as.integer(rownum)]
 
-setorder(tab_nice, rownum, ds, stratum)
+setorder(tab_nice, rownum, period, ASL)
 
 
 # then reshape from long to wide keeping rownum as the UoO
 
 tab_nice <- dcast(
   tab_nice,
-  rownum ~ ds + stratum,
+  rownum ~ period + ASL,
   value.var = "value"
 )
 
@@ -371,20 +232,6 @@ tab_nice <- dcast(
 # Order rows correctly
 setorder(tab_nice, rownum)
 
-
-#########################################
-# ORDER COLUMNS
-# 
-
-ordered_ds <- substring(list_ds_analysed, 2)
-
-ordered_cols <- c(
-  "rownum",
-  as.vector(rbind(paste0(ordered_ds, c("_overall", "_exp1", "_exp0"))
-  ))
-)
-
-setcolorder(tab_nice, ordered_cols)
 
 #########################################
 # ADD ROW HEADER
@@ -418,10 +265,10 @@ setnames(tab_nice, new_names)
 #########################################
 # SAVE
 
-suffix <- "_all_datasources"
 outputfile <- tab_nice
-nameoutput <- paste0("D6_Table_2_baseline_cohort",suffix)
+nameoutput <- "D6_Table_1_cohort_characteristics"
 assign(nameoutput, outputfile)
+
 # rds
 saveRDS(outputfile, file = file.path(thisdiroutput, paste0(nameoutput,".rds")))
 # csv

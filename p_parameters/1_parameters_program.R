@@ -6,12 +6,12 @@ dirtest <- file.path(thisdir,"i_test")
 dircodelist <- file.path(thisdir,"p_parameters","archive_parameters")
 
 batch_size_countprevalence <- 20000000
-# 
-# set_and_create_dir <- function(x) {
-#   x <- paste0(thisdir, x)
-#   dir.create(file.path(x), showWarnings = F)
-#   return(x)
-# }
+
+set_and_create_dir <- function(x) {
+  x <- paste0(thisdir, x)
+  dir.create(file.path(x), showWarnings = F)
+  return(x)
+}
 
 # # set other directories
 # diroutput <- set_and_create_dir("/g_output/")
@@ -28,11 +28,6 @@ dirtemp <- set_and_create_dir("/g_intermediate/")
 # # dircomponents <- set_and_create_dir("/g_intermediate/components/")
 # # dirTD <- set_and_create_dir("/g_intermediate/TD/")
 
-set_and_create_dir <- function(x) {
-  # x <- paste0(thisdir, x)
-  dir.create(file.path(x), showWarnings = F)
-  return(x)
-}
 
 diroutput <- set_and_create_dir(paste0(dirinput,"/g_output/"))
 dirtemp <- set_and_create_dir(paste0(dirinput,"/g_intermediate/"))
@@ -57,11 +52,14 @@ read_library <- function(...) {
   invisible(lapply(x, library, character.only = TRUE))
 }
 
-list.of.packages <- c("MASS", "haven", "tidyverse", "lubridate", "AdhereR", "stringr", "purrr", "readr", "dplyr",
-                      "survival", "rmarkdown", "ggplot2","scales", "data.table", "qpdf", "parallel", "readxl", "gtsummary",
-                      "labelled", "huxtable", "metafor", "markdown", "R.utils", "RcppAlgos", "qs","zoo","knitr", "kableExtra", 
-                      "officer", "writexl","pdftools","png","grid","gridExtra","cowplot", "bit64", "splines", "pbs", "lme4", 
-                      "Matrix", "clubSandwich", "lmtest", "sandwich", "openxlsx", "broom", "broom.mixed", "sjPlot", "performance","gt")
+list.of.packages <- c("MASS", "haven", "tidyverse", "lubridate", "stringr", 
+                      "purrr", "readr", "dplyr", "rmarkdown", "ggplot2",
+                      "scales", "data.table", "qpdf", "parallel", "readxl", 
+                      "gtsummary","labelled", "huxtable", "metafor", "markdown",
+                      "R.utils", "RcppAlgos", "qs","zoo","knitr", "kableExtra", 
+                      "officer", "writexl","pdftools","png","grid","gridExtra",
+                      "cowplot", "bit64", "Matrix", "openxlsx", "broom", 
+                      "broom.mixed", "sjPlot", "performance","gt", "truncnorm")
 
 
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]

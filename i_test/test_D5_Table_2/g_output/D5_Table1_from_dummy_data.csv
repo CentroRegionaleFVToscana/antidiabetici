@@ -1,0 +1,8 @@
+"","period","ASL","N","diab_gestaz_N","diab_gestaz_p","diab_pregrav_N","diab_pregrav_p","bmi_low_N","bmi_low_p","bmi_medium_N","bmi_medium_p","bmi_high_N","bmi_high_p"
+"1","modi","NO",1,1,100,1,100,1,100,0,0,0,0
+"2","modi","SE",2,1,50,2,100,1,50,0,0,1,50
+"3","nota","NO",1,0,0,0,0,0,0,1,100,0,0
+"4","nota","SE",1,1,100,0,0,1,100,0,0,0,0
+"5","pre","CE",2,0,0,0,0,1,50,1,50,0,0
+"6","pre","NO",2,1,50,0,0,1,50,1,50,0,0
+"7","pre","SE",1,0,0,0,0,0,0,0,0,1,100

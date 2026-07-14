@@ -18,8 +18,17 @@ if (TEST){
 
 
 # load data
-data <- readRDS(file = file.path(thisdirinput, "/D3_coorte_con_caratterizzazione.rds"))
+if (TEST & type_data_test=="simulation") {
+  
+  data <- readRDS(file = file.path(thisdirinput, "/D3_coorte_con_caratterizzazione.rds"))
+  
+} else if (TEST & type_data_test=="dummy") {
+  
+  data <- read_csv2(file.path(thisdirinput, "D3_coorte_con_caratterizzazione_dummy_data.csv"))
+  
+}
 
+data <- as.data.table(data)
 
 # Create D5 with sociodemographic characteristics
 D5_nocov <- data[, .(
@@ -71,5 +80,14 @@ for (i in covariates_binary) {
 D5 <- merge(D5_nocov, D5_cov, by = c("period", "ASL", "N"), all = F)
 
 # save
-saveRDS(D5, file = paste0(thisdiroutput, "/D5_Table1.rds"))
-write.csv(D5, file = paste0(thisdiroutput, "/D5_Table1.csv"))
+if (TEST & type_data_test=="simulation") {
+  
+  saveRDS(D5, file = paste0(thisdiroutput, "/D5_Table1_from_simulation.rds"))
+  write.csv(D5, file = paste0(thisdiroutput, "/D5_Table1_from_simulation.csv"))
+  
+} else if (TEST & type_data_test=="dummy") {
+  
+  saveRDS(D5, file = paste0(thisdiroutput, "/D5_Table1_from_dummy_data.rds"))
+  write.csv(D5, file = paste0(thisdiroutput, "/D5_Table1_from_dummy_data.csv"))
+  
+}

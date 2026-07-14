@@ -21,13 +21,13 @@
 # 8 Jun 2026
 
 
-print('CREATE D6_Table_1_cohort_characteristics')
+print('CREATE D6_Table_2_cohort_characteristics_subpopulation_CAP')
 
 
 # assign directories
 
 if (TEST){ 
-  testname <- "test_D6_Table_1"
+  testname <- "test_D6_Table_2"
   thisdirinput <- paste0(file.path(dirtest, testname), "/")
   thisdiroutput <- file.path(dirtest,testname,"g_output")
   dir.create(thisdiroutput, showWarnings = F)
@@ -39,7 +39,7 @@ if (TEST){
 # load
 D5 <- read.csv(file.path(
                   thisdirinput,
-                  "D5_Table1.csv"))
+                  "D5_Table1_from_simulation.csv"))
 
 D5 <- as.data.table(D5)
 
@@ -89,7 +89,6 @@ descriptive_median_q1q3 <- function(j, covar) {
 tab_nice <- copy(D5)
  
 # row 0
-tab_nice     <- copy(D5)
 row_header_1 <- c()
 j            <- -1
 
@@ -106,91 +105,30 @@ tab_nice[, cell := ASL]
 setnames(tab_nice, "cell", paste0("cell_", j))
 
 # row 3
-row_header_1 <- c(row_header_1, "Totale nuovi utilizzatori")
+row_header_1 <- c(row_header_1, "Totale sottopopolazione CAP")
 j <- j + 1
 tab_nice[, cell := as.character(N)]
 setnames(tab_nice, "cell", paste0("cell_", j))
 
-# row 4-5
-row_header_1 <- c(row_header_1, "Età alla data indice,", "  mediana (Q1 - Q3)")
-j <- add_empty_row(j)
-j <- descriptive_median_q1q3(j, "age")
+# row 4
+row_header_1 <- c(row_header_1, "BMI pregravidico basso (<18,5), n (%)")
+j <- descriptive_N_perc(j, "bmi_low_")
 
-# row 6-10
-row_header_1 <- c(row_header_1, 
-                  "Classi età alla data indice", 
-                  "  18-44, n (%)", 
-                  "  45-64, n (%)", 
-                  "  65-74, n (%)", 
-                  "  >75, n (%)")
+# row 5
+row_header_1 <- c(row_header_1, "BMI pregravidico medio (18,5-24,9), n (%)")
+j <- descriptive_N_perc(j, "bmi_medium_")
 
-j <- add_empty_row(j)
-j <- descriptive_N_perc(j, "Age_18_44_")
-j <- descriptive_N_perc(j, "Age_45_64_")
-j <- descriptive_N_perc(j, "Age_65_74_")
-j <- descriptive_N_perc(j, "Age_75over_")
+# row 6
+row_header_1 <- c(row_header_1, "BMI pregravidico alto (>24,9), n (%)")
+j <- descriptive_N_perc(j, "bmi_high_")
 
-# row 11
-row_header_1 <- c(row_header_1,
-                  "Genere F registrato alla data indice, n (%)")
+# row 7
+row_header_1 <- c(row_header_1, "Diabete gestazionale, n (%)")
+j <- descriptive_N_perc(j, "diab_gestaz_")
 
-j <- descriptive_N_perc(j, "genere_F_")
-
-# row 12
-row_header_1 <- c(row_header_1,
-                  "Uso di metformina nei 2 anni precedenti la data indice, n 
-                  (%)")
-
-j <- descriptive_N_perc(j, "met_")
-
-# row 13
-row_header_1 <- c(row_header_1,
-                  "Uso di altri antidiabetici nei 2 anni precedenti la data 
-                  indice (esclusa metformina), n (%)")
-
-j <- descriptive_N_perc(j, "antidiabother_")
-
-# row 14
-row_header_1 <- c(row_header_1,
-                  "Comorbidità")
-
-j <- add_empty_row(j)
-
-# row 15
-row_header_1 <- c(row_header_1,
-                  "Malattia cardiovascolare, n (%)")
-
-j <- descriptive_N_perc(j, "CV_")
-
-# row 16
-row_header_1 <- c(row_header_1,
-                  "Malattia cerebrovascolare, n (%)")
-
-j <- descriptive_N_perc(j, "cerebro_")
-
-# row 17
-row_header_1 <- c(row_header_1,
-                  "Arteriopatia periferica, n (%)")
-
-j <- descriptive_N_perc(j, "aop_")
-
-# row 18
-row_header_1 <- c(row_header_1,
-                  "Rischio CV elevato, n (%)")
-
-j <- descriptive_N_perc(j, "Cvrisk_")
-
-# row 19
-row_header_1 <- c(row_header_1,
-                  "Scompenso cardiaco, n (%)")
-
-j <- descriptive_N_perc(j, "HF_")
-
-# row 20
-row_header_1 <- c(row_header_1,
-                  "Malattia renale cronica, n (%)")
-
-j <- descriptive_N_perc(j, "renal_")
+# row 8
+row_header_1 <- c(row_header_1, "Diabete pregravidico, n (%)")
+j <- descriptive_N_perc(j, "diab_pregrav_")
 
 
 #########################################
@@ -243,30 +181,35 @@ tab_nice[, rownum := NULL]
 #########################################
 # FINAL COLUMNS
 
-colorder <- c("row_header",setdiff(names(tab_nice),"row_header"))
-tab_nice <- tab_nice[, ..colorder]
+data_cols <- setdiff(names(tab_nice), "row_header")
+pre_cols   <- grep("^pre_", data_cols, value = TRUE)
+nota_cols   <- grep("^nota_", data_cols, value = TRUE)
+other_cols <- setdiff(data_cols, c(pre_cols, nota_cols))
+setcolorder(tab_nice, c("row_header", pre_cols, nota_cols, other_cols))
 
 #########################################
 # NAMES
 
-new_names <- names(tab_nice)
+newnames <- c(
+  pre = "Pre- Nota 100 AIFA (1ge2016-25gen2022)",
+  nota = "Nota 100 AIFA (26gen2022-31lug2025)",
+  modifica = "Modifica Nota 100 AIFA(1ago2025-31dic2025)"
+)
 
-# cell_2015 -> 2015, cell_2016 -> 2016, etc.
-new_names <- sub("^cell_([0-9]{4})$", "31 Dec \\1", new_names)
 
-# row_header -> empty
-new_names[new_names == "row_header"] <- ""
-
-# cell_exp_2015, cell_exp_2016, ... -> empty
-new_names[grepl("^cell_exp_[0-9]{4}$", new_names)] <- ""
-
-setnames(tab_nice, new_names)
+tab_nice[1] <- lapply(tab_nice[1], function(x) {
+  
+  idx <- x %in% names(newnames)
+  x[idx] <- unname(newnames[x[idx]])
+  x
+  
+})
 
 #########################################
 # SAVE
 
 outputfile <- tab_nice
-nameoutput <- "D6_Table_1_cohort_characteristics"
+nameoutput <- "D6_Table_2_cohort_characteristics_subpopulation_CAP"
 assign(nameoutput, outputfile)
 
 # rds
@@ -279,5 +222,5 @@ write_xlsx(outputfile, file.path(thisdiroutput, paste0(nameoutput,".xlsx")))
 html_table <- kable(outputfile, format = "html", escape = FALSE) %>% kable_styling(full_width = F, bootstrap_options = c("striped", "hover"))
 writeLines(html_table, file.path(thisdiroutput, paste0(nameoutput,".html")))
 # rtf
-doc <- read_docx() %>% body_add_table(outputfile, style = "table_template") %>% body_end_section_continuous()
+doc <- read_docx() %>% body_add_table(outputfile, style = "table_template", header = F) %>% body_end_section_continuous()
 print(doc, target = file.path(thisdiroutput, paste0(nameoutput,".docx")))

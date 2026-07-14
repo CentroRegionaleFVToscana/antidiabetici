@@ -1,0 +1,11 @@
+﻿person_id;period;ASL;bmi_low;bmi_medium;bmi_high;diab_gestaz;diab_pregrav
+P01;pre;CE;0;1;0;0;0
+P02;pre;NO;0;1;0;1;0
+P03;nota;NO;0;1;0;0;0
+P04;modi;NO;1;0;0;1;1
+P05;modi;SE;0;0;1;0;1
+P06;nota;SE;1;0;0;1;0
+P07;pre;SE;0;0;1;0;0
+P08;pre;CE;1;0;0;0;0
+P09;pre;NO;1;0;0;0;0
+P10;modi;SE;1;0;0;1;1

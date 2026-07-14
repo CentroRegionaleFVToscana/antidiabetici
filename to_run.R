@@ -16,6 +16,7 @@ thisdir <- setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
 TEST <- T
 
+type_data_test <- "simulation" # type_data_test <- "dummy"
 
 ####################
 # load parameters

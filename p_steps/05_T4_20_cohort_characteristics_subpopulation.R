@@ -18,57 +18,69 @@ if (TEST){
 
 # load data
 
-if (TEST & type_data_test=="simulation") {
-  
-  data <- readRDS(file = file.path(thisdirinput, "/D3_coorte_con_caratterizzazione.rds"))
-  
-} else if (TEST & type_data_test=="dummy") {
-  
-  data <- read_csv2(file.path(thisdirinput, "D3_coorte_con_caratterizzazione_dummy_data.csv"))
-  
-}
+# if (TEST & type_data_test=="simulation") {
+#   
+#   data <- readRDS(file = file.path(thisdirinput, "/D3_coorte_con_caratterizzazione.rds"))
+#   
+# } else if (TEST & type_data_test=="dummy") {
+#   
+#   data <- read_csv2(file.path(thisdirinput, "D3_coorte_con_caratterizzazione_dummy_data.csv"))
+#   
+# }
+
+data <- readRDS(file = file.path(thisdirinput, "/D3_coorte_con_caratterizzazione.rds"))
 
 data <- as.data.table(data)
 
-# create D5 with binary covariates
-covariates_binary <- c("diab_gestaz", "diab_pregrav", "bmi_low", "bmi_medium", 
-                       "bmi_high")
+for (j in drugs) {
 
-D5 <- NULL
-
-for (i in covariates_binary) {
+  # create D5 with binary covariates
+  covariates_binary <- c("diab_gestaz", "diab_pregrav", "bmi_low", "bmi_medium", 
+                         "bmi_high")
   
-  tmp <- data[, .(
-    N = .N,
-    tmp_N = sum(get(i)==1),
-    tmp_p = round(sum(get(i)==1)/.N,3)*100),
-    .(period, ASL)]
+  D5 <- NULL
   
-  setnames(tmp,"tmp_N",paste0(i, "_N"))
-  setnames(tmp,"tmp_p",paste0(i, "_p"))
+  for (i in covariates_binary) {
     
-  if (is.null(D5)) {
+    tmp <- data[, .(
+      N = .N,
+      tmp_N = sum(get(i)==1),
+      tmp_p = round(sum(get(i)==1)/.N,3)*100),
+      .(period, ASL)]
     
-    D5 <- tmp
-    
-  } else {
-    
-    D5 <- merge(D5, tmp, by = c("period", "ASL", "N"))
+    setnames(tmp,"tmp_N",paste0(i, "_N"))
+    setnames(tmp,"tmp_p",paste0(i, "_p"))
+      
+    if (is.null(D5)) {
+      
+      D5 <- tmp
+      
+    } else {
+      
+      D5 <- merge(D5, tmp, by = c("period", "ASL", "N"))
+    }
+      
   }
-    
+  
+  assign(paste0("D5_",i), D5)
+
 }
 
-
 # save
+for (j in drugs) {
+  
+  saveRDS(D5, file = paste0(thisdiroutput, "/D5_", j, ".rds"))
+  write.csv(D5, file = paste0(thisdiroutput, "/D5_", j, ".csv"))
 
-if (TEST & type_data_test=="simulation") {
-  
-  saveRDS(D5, file = paste0(thisdiroutput, "/D5_Table1_from_simulation.rds"))
-  write.csv(D5, file = paste0(thisdiroutput, "/D5_Table1_from_simulation.csv"))
-
-} else if (TEST & type_data_test=="dummy") {
-  
-  saveRDS(D5, file = paste0(thisdiroutput, "/D5_Table1_from_dummy_data.rds"))
-  write.csv(D5, file = paste0(thisdiroutput, "/D5_Table1_from_dummy_data.csv"))
-  
+  # if (TEST & type_data_test=="simulation") {
+  #   
+  #   saveRDS(D5, file = paste0(thisdiroutput, "/D5_from_simulation.rds"))
+  #   write.csv(D5, file = paste0(thisdiroutput, "/D5_from_simulation.csv"))
+  # 
+  # } else if (TEST & type_data_test=="dummy") {
+  #   
+  #   saveRDS(D5, file = paste0(thisdiroutput, "/D5_from_dummy_data.rds"))
+  #   write.csv(D5, file = paste0(thisdiroutput, "/D5_from_dummy_data.csv"))
+  #   
+  # }
 }

@@ -46,7 +46,7 @@ covariates_binary <- c("met", "antidiabother", "CV", "cerebro", "aop", "Cvrisk",
                         "HF", "renal")
 
 for (i in covariates_binary) {
-  # set.seed(1111)
+
   cov <- seq(0,1)
   probcov = runif(1, min = 0, max = 1)
   totprob = sum(probcov)
@@ -54,6 +54,12 @@ for (i in covariates_binary) {
   data[, cov := sample(cov, Npersons, replace = TRUE, prob = probcov)]
   setnames(data,"cov",i)
 }
+
+drug_names <- c("SGLT2i","GLP1RA","tirzepatide","DPP4i","DPP4i_SGLT2i",
+                "other_combinations")
+
+data[, drug:=sample(drug_names, Npersons, replace = T,
+                    prob = c(rep(1/length(drug_names), length(drug_names))))]
 
 data[, period:=sample(c("pre", "nota", "modifica"), Npersons, replace = TRUE, 
                       prob = c(rep(0.33, 3)))]

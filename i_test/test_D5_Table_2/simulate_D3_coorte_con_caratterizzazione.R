@@ -61,6 +61,12 @@ mutua_excl <- function(data, group_name, categories, Npersons) {
 
 data <- mutua_excl(data, "bmi", c("low", "medium", "high"), Npersons)
 
+drug_names <- c("SGLT2i","GLP1RA","tirzepatide","DPP4i","DPP4i_SGLT2i",
+                "other_combinations")
+
+data[, drug:=sample(drug_names, Npersons, replace = T,
+                    prob = c(rep(1/length(drug_names), length(drug_names))))]
+
 data[, period:=sample(c("pre", "nota", "modifica"), Npersons, replace = TRUE, 
                       prob = c(rep(0.33, 3)))]
 

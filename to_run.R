@@ -16,7 +16,11 @@ thisdir <- setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
 TEST <- T
 
-type_data_test <- "simulation" # type_data_test <- "dummy"
+#type_data_test <- "simulation" 
+# type_data_test <- "dummy"
+
+# to be removed
+drugs <- c("SGLT2i", "GLP1RA")
 
 ####################
 # load parameters

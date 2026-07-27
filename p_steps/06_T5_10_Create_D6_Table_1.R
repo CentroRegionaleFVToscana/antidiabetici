@@ -39,7 +39,7 @@ if (TEST){
 
 # load
 
-for (j in drugs) {
+for (j in drug_names) {
   
   D5 <- read.csv(paste0(thisdirinput, "D5_", j, ".csv"))
   
@@ -94,7 +94,7 @@ descriptive_median_q1q3 <- function(j, covar) {
 #########################################
 # POPULATE ROWS
 
-for (k in drugs) {
+for (k in drug_names) {
   
 
   tab_nice <- copy(get(paste0("D5_", k)))

@@ -59,7 +59,8 @@ list.of.packages <- c("MASS", "haven", "tidyverse", "lubridate", "stringr",
                       "R.utils", "RcppAlgos", "qs","zoo","knitr", "kableExtra", 
                       "officer", "writexl","pdftools","png","grid","gridExtra",
                       "cowplot", "bit64", "Matrix", "openxlsx", "broom", 
-                      "broom.mixed", "sjPlot", "performance","gt", "truncnorm")
+                      "broom.mixed", "sjPlot", "performance","gt", "truncnorm",
+                      "ggpubr")
 
 
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]

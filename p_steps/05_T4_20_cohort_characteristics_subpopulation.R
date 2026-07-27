@@ -28,11 +28,17 @@ if (TEST){
 #   
 # }
 
-data <- readRDS(file = file.path(thisdirinput, "/D3_coorte_con_caratterizzazione.rds"))
+for (i in drug_names) {
 
-data <- as.data.table(data)
+  data <- readRDS(file = file.path(thisdirinput, paste0("/D3_coorte_con_caratterizzazione_sottopop_CAP_", i, ".rds")))
+  
+  data <- as.data.table(data)
+  
+  assign(paste0("D3_coorte_con_caratterizzazione_sottopop_CAP_", i), data)
 
-for (j in drugs) {
+}
+
+for (j in drug_names) {
 
   # create D5 with binary covariates
   covariates_binary <- c("diab_gestaz", "diab_pregrav", "bmi_low", "bmi_medium", 
@@ -62,15 +68,15 @@ for (j in drugs) {
       
   }
   
-  assign(paste0("D5_",i), D5)
+  assign(paste0("D5_sottopop_CAP_",j), D5)
 
 }
 
 # save
-for (j in drugs) {
+for (j in drug_names) {
   
-  saveRDS(D5, file = paste0(thisdiroutput, "/D5_", j, ".rds"))
-  write.csv(D5, file = paste0(thisdiroutput, "/D5_", j, ".csv"))
+  saveRDS(get(paste0("D5_sottopop_CAP_", j)), file = paste0(thisdiroutput, "/D5_sottopop_CAP_", j, ".rds"))
+  write.csv(get(paste0("D5_sottopop_CAP_", j)), file = paste0(thisdiroutput, "/D5_sottopop_CAP_", j, ".csv"))
 
   # if (TEST & type_data_test=="simulation") {
   #   

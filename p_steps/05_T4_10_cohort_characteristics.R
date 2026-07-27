@@ -29,14 +29,20 @@ if (TEST){
 #   
 # }
 
-data <- readRDS(file = file.path(thisdirinput, "/D3_coorte_con_caratterizzazione.rds"))
+for (i in drug_names) {
 
-data <- as.data.table(data)
+  data <- readRDS(file = paste0(thisdirinput, "/D3_coorte_con_caratterizzazione_", i, ".rds"))
+  
+  data <- as.data.table(data)
+  
+  assign(paste0("D3_coorte_con_caratterizzazione_", i), data)
 
-for (j in drugs) {
+}
+
+for (j in drug_names) {
   
   # Create D5 with sociodemographic characteristics
-  D5_nocov <- data[drug==j, .(
+  D5_nocov <- get(paste0("D3_coorte_con_caratterizzazione_", j))[, .(
                 N          = .N,
                 age_median = median(age),
                 age_q1 = quantile(age, probs = 0.25),
@@ -61,7 +67,7 @@ for (j in drugs) {
   
   for (i in covariates_binary) {
     
-    tmp <- data[drug==j, .(
+    tmp <- get(paste0("D3_coorte_con_caratterizzazione_", j))[, .(
                 N = .N,
                 tmp_N = sum(get(i)==1),
                 tmp_p = round(sum(get(i)==1)/.N,3)*100),
@@ -84,14 +90,14 @@ for (j in drugs) {
   # create the final D5 by merging the previous two
   D5 <- merge(D5_nocov, D5_cov, by = c("period", "ASL", "N"), all = F)
   
-  assign(paste0("D5_",i), D5)
+  assign(paste0("D5_",j), D5)
 
 }
 
-for (j in drugs) {
+for (j in drug_names) {
   
-  saveRDS(D5, file = paste0(thisdiroutput, "/D5_", j, ".rds"))
-  write.csv(D5, file = paste0(thisdiroutput, "/D5_", j, ".csv"))
+  saveRDS(get(paste0("D5_", j)), file = paste0(thisdiroutput, "/D5_", j, ".rds"))
+  write.csv(get(paste0("D5_", j)), file = paste0(thisdiroutput, "/D5_", j, ".csv"))
 
   # # save
   # if (TEST & type_data_test=="simulation") {

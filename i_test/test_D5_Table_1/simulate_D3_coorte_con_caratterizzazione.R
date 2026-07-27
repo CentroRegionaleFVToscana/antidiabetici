@@ -16,6 +16,10 @@ if (!require("truncnorm")) install.packages("truncnorm")
 library(truncnorm)
 
 
+drug_names <- c("SGLT2i","GLP1RA","tirzepatide","DPP4i","DPP4i_SGLT2i",
+                "other_combinations")
+
+for (k in drug_names) {
 
 # name of the dataset to be generated
 namedataset <- "D3_coorte_con_caratterizzazione"
@@ -55,11 +59,8 @@ for (i in covariates_binary) {
   setnames(data,"cov",i)
 }
 
-drug_names <- c("SGLT2i","GLP1RA","tirzepatide","DPP4i","DPP4i_SGLT2i",
-                "other_combinations")
 
-data[, drug:=sample(drug_names, Npersons, replace = T,
-                    prob = c(rep(1/length(drug_names), length(drug_names))))]
+data[, drug:=k]
 
 data[, period:=sample(c("pre", "nota", "modifica"), Npersons, replace = TRUE, 
                       prob = c(rep(0.33, 3)))]
@@ -68,4 +69,6 @@ data[, ASL:=sample(c("CE", "NO", "SE"), Npersons, replace = TRUE,
                    prob = c(rep(0.33, 3)))]
 
 
-saveRDS(data, file = paste0(thisdir, "/", namedataset,".rds"))
+saveRDS(data, file = paste0(thisdir, "/", namedataset, "_", k,".rds"))
+
+}

@@ -38,13 +38,13 @@ if (TEST){
 
 # load
 
-for (j in drugs) {
+for (j in drug_names) {
   
-  D5 <- read.csv(paste0(thisdirinput, "D5_", j, ".csv"))
+  D5 <- read.csv(paste0(thisdirinput, "D5_sottopop_CAP_", j, ".csv"))
   
   D5 <- as.data.table(D5)
   
-  assign(paste0("D5_",j), D5)
+  assign(paste0("D5_sottopop_CAP_",j), D5)
 
 }
 
@@ -91,9 +91,9 @@ descriptive_median_q1q3 <- function(j, covar) {
 #########################################
 # POPULATE ROWS
 
-for (k in drugs) {
+for (k in drug_names) {
 
-  tab_nice <- copy(get(paste0("D5_", k)))
+  tab_nice <- copy(get(paste0("D5_sottopop_CAP_", k)))
    
   # row 0
   row_header_1 <- c()

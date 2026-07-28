@@ -41,12 +41,10 @@ for (i in drug_names) {
 for (j in drug_names) {
 
   # create D5 with binary covariates
-  covariates_binary <- c("diab_gestaz", "diab_pregrav", "bmi_low", "bmi_medium", 
-                         "bmi_high")
   
   D5 <- NULL
   
-  for (i in covariates_binary) {
+  for (i in covariates_binary_tab2) {
     
     tmp <- data[, .(
       N = .N,

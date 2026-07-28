@@ -17,6 +17,7 @@ if (TEST){
 }
 
 
+
 # load data
 
 # if (TEST & type_data_test=="simulation") {
@@ -60,12 +61,10 @@ for (j in drug_names) {
                 .(period, ASL)]
   
   # create D5 with binary covariates
-  covariates_binary <- c("met", "antidiabother", "CV", "cerebro", "aop", "Cvrisk",
-                          "HF", "renal")
-  
+
   D5_cov <- NULL
   
-  for (i in covariates_binary) {
+  for (i in covariates_binary_tab1) {
     
     tmp <- get(paste0("D3_coorte_con_caratterizzazione_", j))[, .(
                 N = .N,

@@ -19,23 +19,6 @@ TEST <- T
 #type_data_test <- "simulation" 
 # type_data_test <- "dummy"
 
-# to be removed
-drug_names <- c("SGLT2i","GLP1RA","tirzepatide","DPP4i","DPP4i_SGLT2i",
-                "other_combinations")
-
-drug_names_s <- c("SGLT2i","GLP1RA","tirzepatide","DPP4i")
-
-var_selection <- c("sel_data_incomplete", "sel_no_obs_periods", "sel_no_drug", 
-                   "sel_no_lookback", "sel_prevalent")
-
-covariates_binary_tab1 <- c("met", "antidiabother", "CV", "cerebro", "aop", 
-                            "Cvrisk", "HF", "renal")
-
-covariates_binary_tab2 <- c("diab_gestaz", "diab_pregrav", "bmi_low", 
-                            "bmi_medium", "bmi_high")
-
-
-
 ####################
 # load parameters
 source(paste0(thisdir,"/p_parameters/1_parameters_program.R"))

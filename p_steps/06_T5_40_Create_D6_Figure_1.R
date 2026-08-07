@@ -28,9 +28,9 @@ if (TEST){
 # load
 for (j in drug_names_s) {
 
-  D5 <- read.csv(paste0(thisdirinput, "D5_prevalence_incidence_", j, ".csv"))
+  D5 <- read.csv(paste0(thisdirinput, "D5_Figure_1_prevalence_incidence_", j, ".csv"))
   D5 <- as.data.table(D5)
-  assign(paste0("D5_prevalence_incidence_",j), D5)
+  assign(paste0("D5_Figure_1_prevalence_incidence_",j), D5)
 
 }
 
@@ -46,7 +46,7 @@ plot_list <- list()
 
 for (i in seq_along(drug_names_s)) {
 
-  p <- ggplot(get(paste0("D5_prevalence_incidence_", drug_names_s[i])), aes(x = factor(year), group = ASL)) +
+  p <- ggplot(get(paste0("D5_Figure_1_prevalence_incidence_", drug_names_s[i])), aes(x = factor(year), group = ASL)) +
           # barra chiara = prevalent (sotto, più alta)
           geom_col(aes(y = prevalent, fill = ASL),
                    position = position_dodge(width = 0.9),
@@ -65,7 +65,7 @@ for (i in seq_along(drug_names_s)) {
 }
 
 # save
-png(paste0(thisdiroutput, "/D6_Figure_1.png"), width = 15, height = 12, units = "in", res = 300)
+png(paste0(thisdiroutput, "/D6_Figure_1_prevalence_incidence.png"), width = 15, height = 12, units = "in", res = 300)
 
 ggarrange(plotlist = plot_list, ncol = 2, nrow = 2,
           common.legend = TRUE, legend = "bottom")

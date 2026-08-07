@@ -28,9 +28,9 @@ if (TEST){
 
 for (j in drug_names) {
   
-  D5 <- read.csv(paste0(thisdirinput, "D5_attrition_", j, ".csv"))
+  D5 <- read.csv(paste0(thisdirinput, "D5_Table_S1_attrition_", j, ".csv"))
   D5 <- as.data.table(D5)
-  assign(paste0("D5_attrition_",j), D5)
+  assign(paste0("D5_Table_S1_attrition_",j), D5)
   
 }
 
@@ -78,7 +78,7 @@ descriptive_median_q1q3 <- function(j, covar) {
 for (k in drug_names) {
   
   
-  tab_nice <- copy(get(paste0("D5_attrition_", k)))
+  tab_nice <- copy(get(paste0("D5_Table_S1_attrition_", k)))
   
   # row 0
   row_header_1 <- c()

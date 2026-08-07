@@ -37,8 +37,8 @@ assign(paste0("D5_prevalence_incidence_", i), tab)
 
 for (i in drug_names_s) {
   
-  saveRDS(get(paste0("D5_prevalence_incidence_", i)), file = paste0(thisdiroutput, "/D5_prevalence_incidence_", i, ".rds") )
-  write.csv(get(paste0("D5_prevalence_incidence_", i)), file = paste0(thisdiroutput, "/D5_prevalence_incidence_", i, ".csv"))
+  saveRDS(get(paste0("D5_prevalence_incidence_", i)), file = paste0(thisdiroutput, "/D5_Figure_1_prevalence_incidence_", i, ".rds") )
+  write.csv(get(paste0("D5_prevalence_incidence_", i)), file = paste0(thisdiroutput, "/D5_Figure_1_prevalence_incidence_", i, ".csv"))
   
 }
 

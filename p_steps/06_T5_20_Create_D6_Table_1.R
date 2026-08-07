@@ -41,11 +41,11 @@ if (TEST){
 
 for (j in drug_names) {
   
-  D5 <- read.csv(paste0(thisdirinput, "D5_", j, ".csv"))
+  D5 <- read.csv(paste0(thisdirinput, "D5_Table_1_caratterizzazione_coorte_", j, ".csv"))
   
   D5 <- as.data.table(D5)
   
-  assign(paste0("D5_",j), D5)
+  assign(paste0("D5_Table_1_caratterizzazione_coorte_",j), D5)
   
 }
 
@@ -97,7 +97,7 @@ descriptive_median_q1q3 <- function(j, covar) {
 for (k in drug_names) {
   
 
-  tab_nice <- copy(get(paste0("D5_", k)))
+  tab_nice <- copy(get(paste0("D5_Table_1_caratterizzazione_coorte_", k)))
    
   # row 0
   row_header_1 <- c()
@@ -283,7 +283,7 @@ for (k in drug_names) {
   # SAVE
   
   outputfile <- tab_nice
-  nameoutput <- "D6_Table_1_cohort_characteristics"
+  nameoutput <- "D6_Table_1_caratterizzazione_coorte"
   assign(nameoutput, outputfile)
   
   # rds

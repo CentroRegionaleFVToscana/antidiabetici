@@ -60,7 +60,7 @@ for (i in var_selection) {
 # save
 for (j in drug_names) {
   
-  saveRDS(get(paste0("D5_attrition_", j)), file = paste0(thisdiroutput, "/D5_attrition_", j, ".rds"))
-  write.csv(get(paste0("D5_attrition_", j)), file = paste0(thisdiroutput, "/D5_attrition_", j, ".csv"))
+  saveRDS(get(paste0("D5_attrition_", j)), file = paste0(thisdiroutput, "/D5_Table_S1_attrition_", j, ".rds"))
+  write.csv(get(paste0("D5_attrition_", j)), file = paste0(thisdiroutput, "/D5_Table_S1_attrition_", j, ".csv"))
   
 }

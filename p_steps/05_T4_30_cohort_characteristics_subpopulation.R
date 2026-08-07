@@ -30,11 +30,11 @@ if (TEST){
 
 for (i in drug_names) {
 
-  data <- readRDS(file = file.path(thisdirinput, paste0("/D3_coorte_con_caratterizzazione_sottopop_CAP_", i, ".rds")))
+  data <- readRDS(file = file.path(thisdirinput, paste0("/D3_incidence_con_caratterizzazione_sottopop_CAP_", i, ".rds")))
   
   data <- as.data.table(data)
   
-  assign(paste0("D3_coorte_con_caratterizzazione_sottopop_CAP_", i), data)
+  assign(paste0("D3_incidence_con_caratterizzazione_sottopop_CAP_", i), data)
 
 }
 
@@ -73,8 +73,8 @@ for (j in drug_names) {
 # save
 for (j in drug_names) {
   
-  saveRDS(get(paste0("D5_sottopop_CAP_", j)), file = paste0(thisdiroutput, "/D5_sottopop_CAP_", j, ".rds"))
-  write.csv(get(paste0("D5_sottopop_CAP_", j)), file = paste0(thisdiroutput, "/D5_sottopop_CAP_", j, ".csv"))
+  saveRDS(get(paste0("D5_sottopop_CAP_", j)), file = paste0(thisdiroutput, "/D5_Table_2_caratterizzazione_coorte_sottopopolazione_CAP_", j, ".rds"))
+  write.csv(get(paste0("D5_sottopop_CAP_", j)), file = paste0(thisdiroutput, "/D5_Table_2_caratterizzazione_coorte_sottopopolazione_CAP_", j, ".csv"))
 
   # if (TEST & type_data_test=="simulation") {
   #   

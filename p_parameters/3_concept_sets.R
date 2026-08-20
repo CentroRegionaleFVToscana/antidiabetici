@@ -1,9 +1,10 @@
 ###################################################################
 # DESCRIBE THE CONCEPT SETS
 ###################################################################
-# concept_sets_of_our_study_drugs <- c("Apixaban","Rivaroxaban","OtherDOACs", "ANTIAGGR", "NSAIDS", "INHIBVITK", "DOAC", "GASTRO", "STATINS", "ANTIDEPR", "HEPARIN", "ANTICANCER", "ANTIHYPERTEN", "ANTIDIAB")
+concept_sets_of_our_study_drugs <- c("SGLT2i","GLP1RA","tirzepatide","DPP4i","DPP4i_SGLT2i",
+                                     "other_combinations","met","antidiabother")
 # 
-# concept_sets_of_our_study_diagnosis <- c("bleeding_narrow","IS","AMI","TIA","VTE","PE","DIC","FAT", "VE", "HF", "STROKE", "RENIMP", "HEPIMP", "DIAB","DEMENTIA","CANCER")
+concept_sets_of_our_study_diagnosis <- c(  "CV", "cerebro", "aop", "Cvrisk", "HF", "renal")
 
 drug_names <- c("SGLT2i","GLP1RA","tirzepatide","DPP4i","DPP4i_SGLT2i",
                 "other_combinations")

@@ -1,7 +1,5 @@
 # #set directory with input data
 
-dirinput <- paste0(thisdir,"/i_input/")
-dirinput <- "P:/osservatori/epidemiologia/FARMACOEPI/OTGC/emorraggie_gravi/CDM_instances/250204/"
 dirtest <- file.path(thisdir,"i_test")
 dircodelist <- file.path(thisdir,"p_parameters","archive_parameters")
 

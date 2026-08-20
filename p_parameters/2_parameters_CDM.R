@@ -11,7 +11,7 @@ inputfiles <- sub('\\.csv$', '', list.files(dirinput))
 
 TheShinISS_CDM_tables <- vector(mode="list")
 
-TheShinISS_CDM_tables[["Diagnosis"]] = c("sdo","ps")
+TheShinISS_CDM_tables[["Diagnosis"]] = c("sdo","ps", "exe")
 TheShinISS_CDM_tables[["Medicines"]] = inputfiles[str_detect(inputfiles, "^fed")]
 TheShinISS_CDM_tables[["Medicines"]] = c(TheShinISS_CDM_tables[["Medicines"]], inputfiles[str_detect(inputfiles, "^spf")])
 
@@ -32,6 +32,7 @@ for (dom in alldomain) {
 TheShinISS_CDM_codvar[["Diagnosis"]][["sdo"]] = c("dia")
 
 TheShinISS_CDM_codvar[["Diagnosis"]][["ps"]] = c("dia")
+TheShinISS_CDM_codvar[["Diagnosis"]][["exe"]] = c("dia")
 # TheShinISS_CDM_codvar[["Procedure"]][["SDO"]] = c("CODCHI2","CODCHI3","CODCHI4", "CODCHI5","CODCHI6" ,"CODCHI")
 # TheShinISS_CDM_codvar[["Procedure"]][["SDOTEMP"]] = c("CODCHI2","CODCHI3","CODCHI4", "CODCHI5","CODCHI6" ,"CODCHI")
 
@@ -61,6 +62,7 @@ TheShinISS_CDM_datevar<-vector(mode = "list")
 
 TheShinISS_CDM_datevar[["Diagnosis"]][["sdo"]] <- c("data_a")
 TheShinISS_CDM_datevar[["Diagnosis"]][["ps"]] <- "data_a"
+TheShinISS_CDM_datevar[["Diagnosis"]][["exe"]] <- "datai"
 # TheShinISS_CDM_datevar[["Procedure"]][["sdo"]] <- c("data_a")
 TheShinISS_CDM_datevar[["Medicines"]][["fed"]] <- c("datasped")
 

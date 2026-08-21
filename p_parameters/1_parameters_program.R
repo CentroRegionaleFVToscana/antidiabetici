@@ -13,7 +13,7 @@ set_and_create_dir <- function(x) {
 
 # # set other directories
 # diroutput <- set_and_create_dir("/g_output/")
-dirtemp <- set_and_create_dir("/g_intermediate/")
+dirtemp <- set_and_create_dir(paste0(thisdir,"/g_intermediate/"))
 # dirconceptsets <- set_and_create_dir("/g_intermediate/conceptset_datasets/")
 # # diritemsets <- set_and_create_dir("/g_intermediate/itemset_datasets/")
 # # dirpromptsets <- set_and_create_dir("/g_intermediate/promptset_datasets/")

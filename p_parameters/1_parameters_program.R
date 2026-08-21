@@ -68,7 +68,7 @@ invisible(lapply(list.of.packages, require, character.only = T))
 rm(read_library, new.packages, list.of.packages)
 
 # load macros
-source(paste0(dirmacro, "CreateConceptSetDatasets_v21.R"))
+source(paste0(dirmacro, "CreateConceptSetDatasets_polars.R"))
 source(paste0(dirmacro, "CreateItemsetDatasets_v03.R"))
 source(paste0(dirmacro, "MergeFilterAndCollapse_v5.R"))
 source(paste0(dirmacro, "CreateSpells_v15.R"))

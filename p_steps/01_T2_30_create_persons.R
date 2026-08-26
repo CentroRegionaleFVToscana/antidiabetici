@@ -32,10 +32,13 @@ processing <- processing[sesso == 2, gender := "F"]
 processing[, birth_date := as.Date(datanas)]
 processing[, death_date := as.Date(datadec)]
 
+processing[, birth_date_or_gender_invalid := fifelse( is.na(gender) | is.na(birth_date), 1,0)]
+
+
 ################################
 # clean
 
-tokeep <- c("person_id", "gender", "birth_date","death_date")
+tokeep <- c("person_id", "gender", "birth_date","death_date", "birth_date_or_gender_invalid")
 
 processing <- processing[, ..tokeep]
 

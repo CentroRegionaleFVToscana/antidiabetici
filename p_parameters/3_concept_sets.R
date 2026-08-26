@@ -7,7 +7,7 @@ concept_sets_of_our_study_drugs <- c("SGLT2i","GLP1RA","tirzepatide","DPP4i","DP
 concept_sets_of_our_study_diagnosis <- c(  "CV", "cerebro", "aop", "Cvrisk", "HF", "renal")
 
 drug_names <- c("SGLT2i","GLP1RA","tirzepatide","DPP4i","DPP4i_SGLT2i",
-                "other_combinations")
+                  "other_combinations")
 
 drug_names_s <- c("SGLT2i","GLP1RA","tirzepatide","DPP4i")
 

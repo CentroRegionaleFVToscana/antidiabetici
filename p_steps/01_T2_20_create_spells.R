@@ -6,7 +6,7 @@
 # assign input and output directories
 
 if (TEST){
-  testname <- "test_createspells"
+  testname <- "test_D3_OBSPERIODS"
   thisdirinput <- file.path(dirtest,testname)
   thisdiroutput <- file.path(dirtest,testname,"g_output")
   dir.create(thisdiroutput, showWarnings = F)
@@ -18,7 +18,7 @@ if (TEST){
 ana <- fread(file.path(thisdirinput,"ANAGRAFE_ASSISTITI.csv"))
 
 
-output_spells_category <- CreateSpells(
+processing <- CreateSpells(
   dataset = ana,
   id = "id" ,
   start_date = "data_inizioass",
@@ -29,23 +29,19 @@ output_spells_category <- CreateSpells(
 rm(ana)
 
 # keep only the spells overlapping the study period
-output_spells_category <- output_spells_category[study_start_date <= exit_spell_category & study_end_date >= entry_spell_category ,]
-# keep only the spells long enough
-output_spells_category <- output_spells_category[exit_spell_category >= entry_spell_category - 365,]
+processing <- processing[study_start_date <= exit_spell_category & study_end_date >= entry_spell_category ,]
 
-setorderv(output_spells_category, c("id", "entry_spell_category"))
 
-processing <- output_spells_category[, is_the_study_spell := as.integer(seq(.N) == .N), by = id]
+setorderv(processing, c("id", "entry_spell_category"))
 
-processing <- processing[is_the_study_spell == 1, ]
 
-setnames(processing,old = c("id"),new = c("person_id"))
+setnames(processing, old = c("id","entry_spell_category","exit_spell_category"),new = c("person_id","start_op", "end_op"))
 
 
 ################################
 # clean
 
-tokeep <- c("person_id", "entry_spell_category","exit_spell_category","is_the_study_spell")
+tokeep <- c("person_id", "start_op", "end_op")
 
 processing <- processing[, ..tokeep]
 
@@ -60,7 +56,7 @@ setorderv(
 
 outputfile <- processing
 
-nameoutput <- "D3_clean_spells"
+nameoutput <- "D3_OBSPERIODS"
 nameoutputext <- paste0(nameoutput,".rds")
 assign(nameoutput, outputfile)
 saveRDS(outputfile, file = file.path(thisdiroutput, nameoutputext))

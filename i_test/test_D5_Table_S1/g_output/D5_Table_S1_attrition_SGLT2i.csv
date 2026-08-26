@@ -1,2 +1,2 @@
-"","N","sel_data_incomplete_N","sel_data_incomplete_p","sel_no_obs_periods_N","sel_no_obs_periods_p","sel_no_drug_N","sel_no_drug_p","sel_no_lookback_N","sel_no_lookback_p","sel_prevalent_N","sel_prevalent_p"
-"1",5000,387,7.7,3763,75.3,973,19.5,1204,24.1,1489,29.8
+"","N","sel_data_incomplete_N","sel_data_incomplete_p","sel_no_obs_periods_N","sel_no_obs_periods_p","sel_obs_period_not_overlapped_study_period_N","sel_obs_period_not_overlapped_study_period_p","sel_never18plus_during_study_period_N","sel_never18plus_during_study_period_p","sel_no_drug_N","sel_no_drug_p","sel_no_drug_during_obs_period_correct_age_N","sel_no_drug_during_obs_period_correct_age_p","sel_no_lookback_N","sel_no_lookback_p","sel_no_ASL_N","sel_no_ASL_p","is_in_study_N","is_in_study_p","is_prevalent_N","is_prevalent_p"
+"1",5000,4024,80.5,3974,79.5,3991,79.8,4040,80.8,4034,80.7,3999,80,4032,80.6,3960,79.2,858,17.2,449,9

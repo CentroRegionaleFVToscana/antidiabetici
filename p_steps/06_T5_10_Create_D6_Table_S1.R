@@ -85,30 +85,50 @@ for (k in drug_names) {
   j            <- -1
   
   # row 1
-  row_header_1 <- c(row_header_1, "Totale popolazione in studio")
+  row_header_1 <- c(row_header_1, "Soggetti con almeno un farmaco nella storia e un observation period che overlappa lo study period")
   j <- j + 1
   tab_nice[, cell := as.character(N)]
   setnames(tab_nice, "cell", paste0("cell_", j))
   
   # row 2
-  row_header_1 <- c(row_header_1, "Totale soggetti registrati in anagrafe sanitaria al 1 gennaio di ogni anno tra 2016 e 2025")
+  row_header_1 <- c(row_header_1, "Totale soggetti registrati in anagrafe sanitaria per almeno un giorno tra il 01/01/2016 e il 31/12/2025")
   j <- descriptive_N_perc(j, "sel_data_incomplete_")
   
   # row 3
-  row_header_1 <- c(row_header_1, "Soggetti con una finestra di osservazione")
+  row_header_1 <- c(row_header_1, "Soggetti con un periodo di osservazione")
   j <- descriptive_N_perc(j, "sel_no_obs_periods_")
   
   # row 4
-  row_header_1 <- c(row_header_1, "Soggetti con almeno 2 anni di osservazione precedenti alla data di ingresso nella coorte di studio")
-  j <- descriptive_N_perc(j, "sel_no_lookback_")
+  row_header_1 <- c(row_header_1, "Soggetti con un periodo di osservazione coincidente con il periodo di studio")
+  j <- descriptive_N_perc(j, "sel_obs_period_not_overlapped_study_period_")
   
   # row 5
-  row_header_1 <- c(row_header_1, "Soggetti con prima dispensazione di farmaci di interesse nel periodo gen2016 - dic2025")
-  j <- descriptive_N_perc(j, "sel_no_drug_")
+  row_header_1 <- c(row_header_1, "Soggetti 18+ in almeno un giorno durante il periodo di studio")
+  j <- descriptive_N_perc(j, "sel_never18plus_during_study_period_")
   
   # row 6
-  row_header_1 <- c(row_header_1, "Soggetti incidenti")
-  j <- descriptive_N_perc(j, "sel_prevalent_")
+  row_header_1 <- c(row_header_1, "Soggetti con almeno una dispensazione del farmaco di interesse nell’istanza")
+  j <- descriptive_N_perc(j, "sel_no_drug_")
+  
+  # row 7
+  row_header_1 <- c(row_header_1, "Soggetti con almeno una dispensazione del farmaco di interesse nel periodo di studio")
+  j <- descriptive_N_perc(j, "sel_no_drug_during_obs_period_correct_age_")
+  
+  # row 8
+  row_header_1 <- c(row_header_1, "Soggetti con almeno 2 anni di osservazione precedenti alla prima data di dispensazione del farmaco di interesse durante il periodo di studio (data indice)")
+  j <- descriptive_N_perc(j, "sel_no_lookback_")
+  
+  # row 9
+  row_header_1 <- c(row_header_1, "Soggetti con ASL registrata alla data indice")
+  j <- descriptive_N_perc(j, "sel_no_ASL_")
+  
+  # row 10
+  row_header_1 <- c(row_header_1, "Soggetti con nessuna dispensazione del farmaco di interesse nei due anni precedenti la data indice")
+  j <- descriptive_N_perc(j, "is_prevalent_")
+  
+  # row 11
+  row_header_1 <- c(row_header_1, "Totale soggetti inclusi nella coorte di studio")
+  j <- descriptive_N_perc(j, "is_in_study_")
   
   
 

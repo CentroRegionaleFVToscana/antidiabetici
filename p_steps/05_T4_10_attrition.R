@@ -34,13 +34,27 @@ D5 <- NULL
 
 for (i in var_selection) {
   
+  if (i != "is_in_study") {
+  
   tmp <- get(paste0("D3_selezione_coorte_", j))[, .(
     N = .N,
-    tmp_N = sum(get(i)==0),
-    tmp_p = round(sum(get(i)==0)/.N,3)*100)]
+    tmp_N = sum(get(i)==0, na.rm = T),
+    tmp_p = round(sum(get(i)==0, na.rm = T)/.N,3)*100)]
   
   setnames(tmp,"tmp_N",paste0(i, "_N"))
   setnames(tmp,"tmp_p",paste0(i, "_p"))
+  
+  } else {
+    
+    tmp <- get(paste0("D3_selezione_coorte_", j))[, .(
+      N = .N,
+      tmp_N = sum(get(i)==1, na.rm = T),
+      tmp_p = round(sum(get(i)==1, na.rm = T)/.N,3)*100)]
+    
+    setnames(tmp,"tmp_N",paste0(i, "_N"))
+    setnames(tmp,"tmp_p",paste0(i, "_p"))
+    
+  }
   
   if (is.null(D5)) {
     

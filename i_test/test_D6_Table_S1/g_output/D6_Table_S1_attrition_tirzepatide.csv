@@ -1,7 +1,12 @@
 row_header,5000
-Totale popolazione in studio,5000
-Totale soggetti registrati in anagrafe sanitaria al 1 gennaio di ogni anno tra 2016 e 2025,"3.238 (64,8%)"
-Soggetti con una finestra di osservazione,"4.810 (96,2%)"
-Soggetti con almeno 2 anni di osservazione precedenti alla data di ingresso nella coorte di studio,"4.262 (85,2%)"
-Soggetti con prima dispensazione di farmaci di interesse nel periodo gen2016 - dic2025,"1.330 (26,6%)"
-Soggetti incidenti,"4.145 (82,9%)"
+Soggetti con almeno un farmaco nella storia e un observation period che overlappa lo study period,5000
+Totale soggetti registrati in anagrafe sanitaria per almeno un giorno tra il 01/01/2016 e il 31/12/2025,"3.983 (79,7%)"
+Soggetti con un periodo di osservazione,"3.994 (79,9%)"
+Soggetti con un periodo di osservazione coincidente con il periodo di studio,"3.983 (79,7%)"
+Soggetti 18+ in almeno un giorno durante il periodo di studio,"3.992 (79,8%)"
+Soggetti con almeno una dispensazione del farmaco di interesse nell’istanza,"4.008 (80,2%)"
+Soggetti con almeno una dispensazione del farmaco di interesse nel periodo di studio,"4.012 (80,2%)"
+Soggetti con almeno 2 anni di osservazione precedenti alla prima data di dispensazione del farmaco di interesse durante il periodo di studio (data indice),"4.031 (80,6%)"
+Soggetti con ASL registrata alla data indice,"3.954 (79,1%)"
+Soggetti con nessuna dispensazione del farmaco di interesse nei due anni precedenti la data indice,"429 (8,6%)"
+Totale soggetti inclusi nella coorte di studio,"840 (16,8%)"

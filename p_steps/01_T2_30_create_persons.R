@@ -1,6 +1,6 @@
 # author: Rosa Gini
 
-# v 1.0 24 Nov 2024
+# v 1.0 26 Aug 2026
 
 #########################################
 # assign input and output directories

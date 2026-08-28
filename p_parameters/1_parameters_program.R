@@ -34,6 +34,7 @@ dirconceptsets <- set_and_create_dir(paste0(dirinput,"/g_intermediate/conceptset
 # dirpromptsets <- set_and_create_dir("/g_intermediate/promptset_datasets/")
 direxp <- set_and_create_dir(paste0(thisdir,"/g_export/"))
 dirmacro <- paste0(thisdir,"/p_macro/")
+dirarchive <- paste0(thisdir,"/p_parameters/archive_parameters/")
 dirpargen <- set_and_create_dir(paste0(dirinput,"/g_parameters/"))
 # direvents <- set_and_create_dir("/g_intermediate/events/")
 # dircomponents <- set_and_create_dir("/g_intermediate/components/")

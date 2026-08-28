@@ -1,8 +1,6 @@
-# author: Sabrina Giometto
+# author: Rosa Gini
 
-# v 1.0 05 Giu 2026 Creation of D5 started
-
-# v 1.1 24 Giu 2026 Creation of D5 completed
+# v 1.0 28 Aug 2026
 
 #########################################
 

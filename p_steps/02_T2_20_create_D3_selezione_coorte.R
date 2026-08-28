@@ -25,8 +25,8 @@ for (i in thisdrug_names) {
   
   # load data
   
-  medicines <- as.data.table(get(load(file.path(thisdirinput, paste0(i,"_dataset.RData")))[[1]]))
-  setnames(medicines, "id", "person_id")
+  medicines <- as.data.table(get(load(file.path(thisdirinput, paste0(i,".RData")))[[1]]))
+  setnames(medicines, "ID", "person_id")
   
   obsperiods <- readRDS(file = file.path(thisdirinput, "D3_OBSPERIODS.rds"))
   
@@ -123,15 +123,15 @@ for (i in thisdrug_names) {
   
   temp <- merge(medicines, obsenriched, by = "person_id", allow.cartesian = T, all = F)  
 
-  temp <- temp[datasped >= study_start_date & datasped >= date_18th_birthday & datasped <= study_end_date ,]
+  temp <- temp[DATE >= study_start_date & DATE >= date_18th_birthday & DATE <= study_end_date ,]
   
-  setorder(temp, person_id, datasped)
+  setorder(temp, person_id, DATE)
   
   temp[, n := rowid(person_id)]
   
-  temp <- temp[ n == 1, .(person_id, start_op, end_op, datasped)]
+  temp <- temp[ n == 1, .(person_id, start_op, end_op, DATE)]
   
-  setnames(temp, c("start_op", "end_op", "datasped"), c("start_study_op", "end_study_op", "date_first"))
+  setnames(temp, c("start_op", "end_op", "DATE"), c("start_study_op", "end_study_op", "date_first"))
   
   temp[, (thissel) := 0]
 
@@ -185,7 +185,7 @@ for (i in thisdrug_names) {
   
   temp <- merge(medicines, processing[is_in_study == 1,.(person_id), all = F])
   
-  temp <- temp[, .(min = min(datasped)), by = "person_id" ]
+  temp <- temp[, .(min = min(DATE)), by = "person_id" ]
   
   processing <- merge(processing, temp, by = "person_id", all.x = T)
   

@@ -17,7 +17,7 @@ library(lubridate)
 
 # list of datasets
 
-listdatasetsRData <- c("SGLT2i_dataset")
+listdatasetsRData <- c("SGLT2i")
 
 listdatasets <- c("D3_PERSONS", "D3_OBSPERIODS", "D3_ASL",listdatasetsRData)
 
@@ -32,7 +32,7 @@ listdates[["D3_OBSPERIODS"]] <- c("start_op", "end_op")
 
 listdates[["D3_ASL"]] <- c("start_d", "end_d")
 
-listdates[["SGLT2i_dataset"]] <- c("datasped")
+listdates[["SGLT2i"]] <- c("DATE")
 
 
 # date baseline

@@ -30,6 +30,8 @@ for (i in thisdrug_names) {
   medicines <- as.data.table(get(load(file.path(thisdirinput, paste0(i,".RData")))[[1]]))
   setnames(medicines, "ID", "person_id")
   
+  medicines <- medicines[,.(person_id, DATE)]
+  
   obsperiods <- readRDS(file = file.path(thisdirinput, "D3_OBSPERIODS.rds"))
   
   asl <- readRDS(file = file.path(thisdirinput, "D3_ASL.rds"))

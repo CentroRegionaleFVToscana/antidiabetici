@@ -14,8 +14,7 @@ TheShinISS_CDM_tables <- vector(mode="list")
 TheShinISS_CDM_tables[["Diagnosis"]] = c("sdo","ps", "exe")
 TheShinISS_CDM_tables[["Medicines"]] = inputfiles[str_detect(inputfiles, "^fed")]
 TheShinISS_CDM_tables[["Medicines"]] = c(TheShinISS_CDM_tables[["Medicines"]], inputfiles[str_detect(inputfiles, "^spf")])
-
-# TheShinISS_CDM_tables[["Procedure"]]=c("SDO","SDOTEMP")
+TheShinISS_CDM_tables[["Procedure"]]= c("sdoproc")
 
 # assign -TheShinISS_CDM_codvar- and -TheShinISS_CDM_coding_system_cols-: they are also 2-level lists, they encode from the data model the name of the column(s) of each table that contain, respectively the code and the coding system, corresponding to a data domain the table belongs to
 
@@ -33,7 +32,7 @@ TheShinISS_CDM_codvar[["Diagnosis"]][["sdo"]] = c("dia")
 
 TheShinISS_CDM_codvar[["Diagnosis"]][["ps"]] = c("dia")
 TheShinISS_CDM_codvar[["Diagnosis"]][["exe"]] = c("dia")
-# TheShinISS_CDM_codvar[["Procedure"]][["SDO"]] = c("CODCHI2","CODCHI3","CODCHI4", "CODCHI5","CODCHI6" ,"CODCHI")
+TheShinISS_CDM_codvar[["Procedure"]][["sdoproc"]] = c("int")
 # TheShinISS_CDM_codvar[["Procedure"]][["SDOTEMP"]] = c("CODCHI2","CODCHI3","CODCHI4", "CODCHI5","CODCHI6" ,"CODCHI")
 
 # assign 2 more 3-level lists: -id- -date-. They encode from the data model the name of the column(s) of each data table that contain, respectively, the personal identifier and the date. Those 2 lists are to be inputted in the rename_col option of the function. 
@@ -58,6 +57,7 @@ for (dom in alldomain) {
 DATE[["Diagnosis"]][["sdo"]] = "data_a"
 DATE[["Diagnosis"]][["ps"]] = DATE[["Diagnosis"]][["sdo"]]
 DATE[["Diagnosis"]][["exe"]] ="datai"
+DATE[["Prodedure"]][["sdoproce"]] = "data_int"
 
 
 TheShinISS_CDM_datevar<-vector(mode = "list")
@@ -65,6 +65,10 @@ TheShinISS_CDM_datevar<-vector(mode = "list")
 TheShinISS_CDM_datevar[["Diagnosis"]][["sdo"]] <- c("data_a")
 TheShinISS_CDM_datevar[["Diagnosis"]][["ps"]] <- "data_a"
 TheShinISS_CDM_datevar[["Diagnosis"]][["exe"]] <- "datai"
-# TheShinISS_CDM_datevar[["Procedure"]][["sdo"]] <- c("data_a")
-TheShinISS_CDM_datevar[["Medicines"]][["fed"]] <- c("datasped")
+TheShinISS_CDM_datevar[["Procedure"]][["sdoproc"]] <- c("data_int")
+
+for (ds in TheShinISS_CDM_tables[["Medicines"]]) {
+  TheShinISS_CDM_datevar[["Medicines"]][[ds]] <- c("datasped")
+  
+}
 

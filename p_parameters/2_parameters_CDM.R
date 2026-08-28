@@ -57,7 +57,7 @@ for (dom in alldomain) {
 DATE[["Diagnosis"]][["sdo"]] = "data_a"
 DATE[["Diagnosis"]][["ps"]] = DATE[["Diagnosis"]][["sdo"]]
 DATE[["Diagnosis"]][["exe"]] ="datai"
-DATE[["Prodedure"]][["sdoproce"]] = "data_int"
+DATE[["Prodedure"]][["sdoproc"]] = "data_int"
 
 
 TheShinISS_CDM_datevar<-vector(mode = "list")

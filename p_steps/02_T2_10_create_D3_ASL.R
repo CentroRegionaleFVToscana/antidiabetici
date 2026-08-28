@@ -14,7 +14,7 @@ if (TEST){
   thisdiroutput <- file.path(dirtest,testname,"g_output")
   dir.create(thisdiroutput, showWarnings = F)
 }else{
-  thisdirinput <- dirtemp
+  thisdirinput <- dirinput
   thisdiroutput <- dirtemp
 }
 
@@ -24,6 +24,8 @@ processing <- fread(file.path(thisdirinput,"MISURE_TD.csv"))
 
 setnames(processing,c("id", "ini_record", "fine_record"),c("person_id", "start_d", "end_d"))
 
+processing[, start_d := ymd(start_d)]
+processing[, end_d := ymd(end_d)]
 
 # keep information overlapping the study period
 

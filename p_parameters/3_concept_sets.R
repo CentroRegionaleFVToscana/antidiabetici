@@ -143,19 +143,11 @@ concept_set_codes_our_study[["proc_carot"]][["ICD9PROC"]] <- c("00.61", "00.63")
 # concept_set_codes_our_study[["HF"]][["ICD9"]] = c("428", "398.91", "402.01", "402.11", "402.91", "404.01", "404.03", "404.11", "404.13", "404.91", "404.93") # Scompenso cardiaco
 # concept_set_codes_our_study[["renal_alg2"]][["ICD9"]] = c("582.0", "582.1", "582.2", "582.3", "582.4", "582.5", "582.6", "582.7", "582.8", "582.9", "581", "753.1", "590.00", "590.01", "589.0", "585", "586") # Malattia renale cronica
 # 
-# concept_set_codes_our_study[["met"]][["ATC"]] = "A10BA02" # metformina
-# concept_set_codes_our_study[["antidiabother"]][["ATC"]] = c("A10") # altri farmaci antidiabetici
-# concept_set_codes_our_study[["CV"]][["ATC"]] = c("C01DA") # Malattia cardiovascolare
-# concept_set_codes_our_study[["Cvrisk_combined_b"]][["ATC"]] = c("C10") # Rischio CV elevato (fattore di rischio b.)
-# concept_set_codes_our_study[["Cvrisk_combined_d"]][["ATC"]] = c("C09", "C02", "C07", "C08C") # Rischio CV elevato (fattore di rischio d.)
-# concept_set_codes_our_study[["renal_alg1"]][["ATC"]] = c("C09C", "C09B", "M04AA01") # Malattia renale cronica (alg.1)
-# concept_set_codes_our_study[["renal_alg2"]][["ATC"]] = c("B03XA01", "V03AE03", "V03AE02", "V03AE01", "H05BX02", "B03XA02", "H05BX01") # Malattia renale cronica (alg.2)
-# 
-# 
-# concept_set_codes_our_study[["Cvrisk_combined_b"]][["CMN"]] = c("025") # Rischio CV elevato (fattore di rischio b.)
-# 
-# concept_set_codes_our_study_excl[["antidiabother"]][["ATC"]] = c("A10BA02", "A10BH", "A10BJ", "A10BK", "A10BX16", "A10BD24", "A10BD21", "A10BD19", "A10BD13", "A10BD11", "A10BD10", "A10BD07", "A10BD08",
-#                                                                  "A10BD09",
-#                                                                  "A10AE56", "A10AE54",
-#                                                                  "A10BD16", "A10BD15", "A10BD20", "A10BD23") # altri farmaci antidiabetici
-# 
+concept_set_codes_our_study[["met"]][["ATC"]] = "A10BA02" # metformina
+concept_set_codes_our_study[["antidiabother"]][["ATC"]] = c("A10") # altri farmaci antidiabetici
+ 
+concept_set_codes_our_study_excl[["antidiabother"]][["ATC"]] = c("A10BA02", "A10BH", "A10BJ", "A10BK", "A10BX16", "A10BD24", "A10BD21", "A10BD19", "A10BD13", "A10BD11", "A10BD10", "A10BD07", "A10BD08",
+                                                                 "A10BD09",
+                                                                 "A10AE56", "A10AE54",
+                                                                 "A10BD16", "A10BD15", "A10BD20", "A10BD23") # altri farmaci antidiabetici
+

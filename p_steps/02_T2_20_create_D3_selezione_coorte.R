@@ -23,6 +23,8 @@ i <- "SGLT2i"
 
 for (i in thisdrug_names) {
   
+  print(i)
+  
   # load data
   
   medicines <- as.data.table(get(load(file.path(thisdirinput, paste0(i,".RData")))[[1]]))
@@ -189,7 +191,7 @@ for (i in thisdrug_names) {
   
   processing <- merge(processing, temp, by = "person_id", all.x = T)
   
-  processing[, is_prevalent := fifelse(is_in_study == 1 & min < date_first, 1, 0, NA_integer_)]
+  processing[, is_prevalent := fifelse(is_in_study == 1 & min < date_first, 1L, 0L, NA_integer_)]
   
   # period
   

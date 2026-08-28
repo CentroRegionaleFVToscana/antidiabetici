@@ -49,7 +49,7 @@ tokeep <- c("person_id", "start_d", "end_d", "ASL")
 
 processing <- processing[, ..tokeep]
 
-nameoutputfile <- paste0("D3_ALS.rds")
+nameoutputfile <- paste0("D3_ASL.rds")
 
 saveRDS(processing, file = file.path(thisdiroutput, nameoutputfile))
 

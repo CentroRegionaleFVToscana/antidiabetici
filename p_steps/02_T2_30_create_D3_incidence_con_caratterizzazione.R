@@ -39,7 +39,7 @@ for (i in thisdrug_names) {
   processing[, ageband := fcase(
     age >= 18 & age <= 44, "18-45",
     age >= 45 & age <= 64, "45-64",
-    age >= 64 & age <= 74, "65-74",
+    age >= 65 & age <= 74, "65-74",
     age >= 75, "75+"
   )
              ]
@@ -107,7 +107,7 @@ for (i in thisdrug_names) {
   
   # clean and save
   
-  tokeep <- c("person_id", "date_first", "period", "ASL", "age", "ageband", "genere", "met", "antidiabother", "IHD", "AMI", "bypass", "angioplastic", "STROKE", "TIA", "carot", "ateros", "organdamage", "age50plus", "dyslipidemia", "obesity", "hypertension", "smoking", "Cvriskfactors", "RENDIS_Alg1_1", "RENDIS_Alg1_2", "RENDIS_Alg1_3", "RENDIS_Alg1", "RENDIS_Alg2", "CV", "cerebro", "aop", "Cvrisk", "HF", "renal")
+  tokeep <- c("person_id", "date_first", "period", "ASL", "age", "ageband", "genere", "met", "antidiabother", "IHD", "AMI", "bypass", "angioplastic", "STROKE", "TIA", "carot", "ateros", "organdamage", "ag<e50plus", "dyslipidemia", "obesity", "hypertension", "smoking", "Cvriskfactors", "RENDIS_Alg1_1", "RENDIS_Alg1_2", "RENDIS_Alg1_3", "RENDIS_Alg1", "RENDIS_Alg2", "CV", "cerebro", "aop", "Cvrisk", "HF", "renal")
 
   processing <- processing[, ..tokeep]
 

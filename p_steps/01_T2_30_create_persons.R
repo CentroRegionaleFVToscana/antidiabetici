@@ -17,6 +17,12 @@ if (TEST){
 
 processing <- fread(file.path(thisdirinput,"ANAGRAFE_ASSISTITI.csv"))
 
+date_cols <- c("data_inizioass", "data_fineass", "datadec", "datanas")
+
+for (datevar in date_cols) {
+  print(datevar)
+  processing[, (datevar) := ymd(get(datevar))]
+}
 
 setorderv(processing, c("id", "data_inizioass"))
 

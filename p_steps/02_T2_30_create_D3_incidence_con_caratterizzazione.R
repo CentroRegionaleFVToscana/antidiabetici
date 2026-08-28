@@ -37,7 +37,7 @@ for (i in thisdrug_names) {
   # ageband
 
   processing[, ageband := fcase(
-    age >= 18 & age <= 44, "18-45",
+    age >= 18 & age <= 44, "18-44",
     age >= 45 & age <= 64, "45-64",
     age >= 65 & age <= 74, "65-74",
     age >= 75, "75+"

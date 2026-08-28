@@ -15,13 +15,32 @@ baselinedate <- 20190101
 
 # list of datasets
 
-listdatasets <- c("D3_study_population","D3_study_outcomes")
+conceptsets_med <- c("med_IHD", "med_dyslipidemia", "med_hypertension", "med_RENDIS_Alg1_1", "med_RENDIS_Alg1_2", "med_RENDIS_Alg1_3", "med_RENDIS_Alg2")
+
+conceptsets_dia <- c("dia_IHD", "dia_AMI", "dia_STROKE", "dia_TIA", "dia_aop", "dia_ateros", "dia_organdamage", "dia_dyslipidemia", "dia_obesity", "dia_hypertension", "dia_smoking", "dia_HF", "dia_RENDIS")
+
+conceptsets_proc <- c("proc_bypass", "proc_angioplasty", "proc_carot")
+
+listdatasets <- c(conceptsets_med,conceptsets_dia,conceptsets_proc)
 
 # dates variables 
 
 listdates <- list()
 listdates[["D3_study_outcomes"]] <- "date"
 listdates[["D3_study_population"]] <- c("birth_date", "death_date","date_bleeding","end_followup_d")
+
+for (dataset in conceptsets_dia) {
+  listdates[[dataset]] <- c("data_a","datai")
+}
+
+for (dataset in conceptsets_med) {
+  listdates[[dataset]] <- c("datasped")
+}
+
+for (dataset in conceptsets_proc) {
+  listdates[[dataset]] <- c("data_a")
+}
+
 
 # date baseline
 

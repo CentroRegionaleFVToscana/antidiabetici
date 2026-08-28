@@ -2,7 +2,7 @@
 # DESCRIBE THE CONCEPT SETS
 ###################################################################
 concept_sets_of_our_study_drugs <- c("SGLT2i","GLP1RA","tirzepatide","DPP4i","DPP4i_SGLT2i",
-                                     "other_combinations","met","antidiabother", "med_IHD", "med_dislypidemia", "med_hypertension", "med_RENDIS_Alg1_1", "med_RENDIS_Alg1_2", "med_RENDIS_Alg1_3", "med_RENDIS_Alg2")
+                                     "other_combinations","met","antidiabother", "med_IHD", "med_dyslipidemia", "med_hypertension", "med_RENDIS_Alg1_1", "med_RENDIS_Alg1_2", "med_RENDIS_Alg1_3", "med_RENDIS_Alg2")
 
 # concept_sets_of_our_study_diagnosis <- c(  "CV", "cerebro", "aop", "Cvrisk", "HF", "renal")
 
@@ -39,7 +39,7 @@ name_codelist[["antidiabother"]] = "Altri antidiabetici"
 # codelists from Table 3 of the protocol
 
 name_codelist[["med_IHD"]] <- "Medicines contributing to the algorithm on IHD (Table 3 of the protocol)"
-name_codelist[["med_dislypidemia"]] <- "Medicines contributing to the algorithm on dislypidemia (Table 3 of the protocol)"
+name_codelist[["med_dyslipidemia"]] <- "Medicines contributing to the algorithm on dyslipidemia (Table 3 of the protocol)"
 name_codelist[["med_hypertension"]] <- "Medicines contributing to the algorithm on hypertension (Table 3 of the protocol)"
 name_codelist[["med_RENDIS_Alg1_1"]] <- "Medicines contributing to the algorithm 1 on  chronic kidney disease, group 1 (Table 3 of the protocol)"
 name_codelist[["med_RENDIS_Alg1_2"]] <- "Medicines contributing to the algorithm 1 on  chronic kidney disease, group 2 (Table 3 of the protocol)"
@@ -115,11 +115,11 @@ concept_set_codes_our_study[["dia_HF"]][["ICD9"]] <- c("428", "398.91", "402.01"
 concept_set_codes_our_study[["dia_RENDIS"]][["ICD9"]] <- c("582.0", "582.1", "582.2", "582.3", "582.4", "582.5", "582.6", "582.7", "582.8", "582.9", "581", "753.1", "590.00", "590.01", "589.0", "585", "586")
 
 # concept_set_codes_our_study[["dia_dyslipidemia"]][["EXECOD"]] <- c("025")
-# concept_set_codes_our_study[["dia_organdamage"]][["EXECOD"]] <- c("025","0031")
+# concept_set_codes_our_study[["dia_organdamage"]][["EXECOD"]] <- c("023","0031")
 
 
 concept_set_codes_our_study[["med_IHD"]][["ATC"]] <- c("C01DA")
-concept_set_codes_our_study[["med_dislypidemia"]][["ATC"]] <- c("C10")
+concept_set_codes_our_study[["med_dyslipidemia"]][["ATC"]] <- c("C10")
 concept_set_codes_our_study[["med_hypertension"]][["ATC"]] <- c("C09", "C02", "C07", "C08C")
 concept_set_codes_our_study[["med_RENDIS_Alg1_1"]][["ATC"]] <- c("C09C")
 concept_set_codes_our_study[["med_RENDIS_Alg1_2"]][["ATC"]] <- c("C09B")

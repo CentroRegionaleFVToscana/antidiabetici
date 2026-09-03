@@ -34,7 +34,7 @@ D5 <- NULL
 
 for (i in var_selection) {
   
-  if (i != "is_in_study") {
+  if (!i %in% c("is_in_study", "is_prevalent")) {
   
   tmp <- get(paste0("D3_selezione_coorte_", j))[, .(
     N = .N,
@@ -44,7 +44,17 @@ for (i in var_selection) {
   setnames(tmp,"tmp_N",paste0(i, "_N"))
   setnames(tmp,"tmp_p",paste0(i, "_p"))
   
-  } else {
+  } else if (i == "is_prevalent") {
+    
+    tmp <- get(paste0("D3_selezione_coorte_", j))[, .(
+      N = .N,
+      tmp_N = sum(get("is_in_study") == 1 & get(i)==0, na.rm = T),
+      tmp_p = round(sum(get("is_in_study") == 1 & get(i)==0, na.rm = T)/.N,3)*100)]
+    
+    setnames(tmp,"tmp_N",paste0(i, "_N"))
+    setnames(tmp,"tmp_p",paste0(i, "_p"))
+    
+    } else if (i == "is_in_study") {
     
     tmp <- get(paste0("D3_selezione_coorte_", j))[, .(
       N = .N,

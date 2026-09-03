@@ -20,14 +20,23 @@ if (TEST){
 }
 
 # load
-df <- readRDS(file.path(thisdirinput, "D4_prevalence_incidence.rds"))
+for (k in drug_names_s) {
+  
+  df <- readRDS(paste0(thisdirinput, "D4_prevalence_incidence_", k, ".rds"))
+  
+  assign(paste0("D4_prevalence_incidence_", k), df)
+  
+}
+
+# bind rows
+D4_prevalence_incidence <- rbindlist(mget(ls(pattern = "^D4_prevalence_incidence_")))
 
 # create frequency tables
 
 for (i in drug_names_s) {
 
-tab <- df[drug==i, .(prevalent = sum(is_prevalent),
-              incident = sum(is_incident)), .(year, ASL)]
+tab <- D4_prevalence_incidence[drug==i, .(prevalent = sum(is_prevalent),
+                               incident = sum(is_incident)), .(year, ASL)]
 
 assign(paste0("D5_prevalence_incidence_", i), tab)
 

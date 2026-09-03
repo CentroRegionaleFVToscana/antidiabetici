@@ -31,6 +31,7 @@ CreateConceptSetDatasets(dataset = TheShinISS_CDM_tables,
                          concept_set_domains = concept_set_domains,
                          concept_set_codes =	concept_set_codes_our_study,
                          concept_set_names = concept_sets_of_our_study_drugs,
+                         concept_set_codes_excl = concept_set_codes_our_study_excl,
                          dirinput = thisdirinput,
                          diroutput = thisdiroutput,
                          extension = c("csv")
@@ -48,8 +49,7 @@ CreateConceptSetDatasets(dataset = TheShinISS_CDM_tables,
                          concept_set_codes_excl = concept_set_codes_our_study_excl,
                          dirinput = thisdirinput,
                          diroutput = thisdiroutput,
-                         extension = c("csv"),
-                         vocabularies_with_exact_search = c("any"))
+                         extension = c("csv"))
 
 
 CreateConceptSetDatasets(dataset = TheShinISS_CDM_tables,

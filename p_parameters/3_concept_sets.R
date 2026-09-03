@@ -114,6 +114,43 @@ concept_set_codes_our_study[["dia_smoking"]][["ICD9"]] <- c("305.1")
 concept_set_codes_our_study[["dia_HF"]][["ICD9"]] <- c("428", "398.91", "402.01", "402.11", "402.91", "404.01", "404.03", "404.11", "404.13", "404.91", "404.93")
 concept_set_codes_our_study[["dia_RENDIS"]][["ICD9"]] <- c("582.0", "582.1", "582.2", "582.3", "582.4", "582.5", "582.6", "582.7", "582.8", "582.9", "581", "753.1", "590.00", "590.01", "589.0", "585", "586")
 
+# codes to be excluded
+
+# aop
+codes_excl_dia_aop <- NULL
+
+for (i in 0:9) {
+  
+  tmp <- paste0(concept_set_codes_our_study[["dia_aop"]][["ICD9"]], i)
+
+  codes_excl_dia_aop <- c(codes_excl_dia_aop, tmp)
+  
+}
+
+concept_set_codes_our_study_excl[["dia_aop"]][["ICD9"]] = codes_excl_dia_aop
+
+# stroke
+codes_excl_dia_stroke <- NULL
+
+for (i in 0:9) {
+  
+  tmp <- paste0(c("430", "431", "432", "436"), ".", i)
+  
+  codes_excl_dia_stroke <- c(codes_excl_dia_stroke, tmp)
+  
+}
+
+concept_set_codes_our_study_excl[["dia_STROKE"]][["ICD9"]] = codes_excl_dia_stroke
+
+# danno a organo
+codes_excl_dia_organdamage <- paste0("362.0", c(0:9))
+
+concept_set_codes_our_study_excl[["dia_organdamage"]][["ICD9"]] = codes_excl_dia_organdamage
+
+
+
+
+
 # concept_set_codes_our_study[["dia_dyslipidemia"]][["EXECOD"]] <- c("025")
 # concept_set_codes_our_study[["dia_organdamage"]][["EXECOD"]] <- c("023","0031")
 
@@ -124,7 +161,7 @@ concept_set_codes_our_study[["med_hypertension"]][["ATC"]] <- c("C09", "C02", "C
 concept_set_codes_our_study[["med_RENDIS_Alg1_1"]][["ATC"]] <- c("C09C")
 concept_set_codes_our_study[["med_RENDIS_Alg1_2"]][["ATC"]] <- c("C09B")
 concept_set_codes_our_study[["med_RENDIS_Alg1_3"]][["ATC"]] <- c("M04AA01")
-concept_set_codes_our_study[["med_RENDIS_Alg2"]][["ATC"]] <- c("B03XA01", "V03AE03", "V03AE02", "V03AE01", "H05BX02", "B03XA02", "H05BX01")
+  concept_set_codes_our_study[["med_RENDIS_Alg2"]][["ATC"]] <- c("B03XA01", "V03AE03", "V03AE02", "V03AE01", "H05BX02", "B03XA02", "H05BX01")
 
 
 concept_set_codes_our_study[["proc_bypass"]][["ICD9PROC"]] <- c("36.10", "36.11", "36.12", "36.13", "36.14", "36.15", "36.16", "36.17", "36.18", "36.19")

@@ -100,7 +100,7 @@ for (i in thisdrug_names) {
   
   # renal
   
-  processing[, renal := fifelse(RENDIS_Alg1 + RENDIS_Alg2 >= 0 , 1 , 0)]
+  processing[, renal := fifelse(RENDIS_Alg1 + RENDIS_Alg2 >= 1 , 1 , 0)]
   
   
   

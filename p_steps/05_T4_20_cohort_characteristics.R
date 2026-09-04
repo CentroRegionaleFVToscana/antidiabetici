@@ -13,7 +13,7 @@ if (TEST){
   dir.create(thisdiroutput, showWarnings = F)
 }else{
   thisdirinput <- dirtemp
-  thisdiroutput <- dirtemp
+  thisdiroutput <- direxp
 }
 
 

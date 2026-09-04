@@ -16,48 +16,68 @@ if (!require("truncnorm")) install.packages("truncnorm")
 library(truncnorm)
 
 
+# numerator
 
-# name of the dataset to be generated
-namedataset <- "D4_prevalence_incidence"
+for (k in drug_names) {
 
-set.seed(1234)
-
-# set number of persons
-Npersons <- 5000
-# create base
-data <- data.table::data.table(person_id = as.character(sample(1:Npersons, Npersons, replace = TRUE)))
-
-# person_id 
-data[, person_id := paste0("000000",person_id)]
-data[, person_id := paste0("P",substr(person_id, nchar(person_id) - 6, 
-                                      nchar(person_id)))]
-
-# year
-data[, year := as.character(sample(c(2016:2025), Npersons, replace = TRUE))]
-
-# drug
-drug_names <- c("SGLT2i","GLP1RA","tirzepatide","DPP4i","DPP4i_SGLT2i",
-                "other_combinations")
-
-data[, drug:=sample(drug_names, Npersons, replace = T,
-                    prob = c(rep(1/length(drug_names), length(drug_names))))]
-
-# ASL
-data[, ASL:=sample(c("CE", "NO", "SE"), Npersons, replace = TRUE, 
-                   prob = c(rep(0.33, 3)))]
-
-# prevalent/incident user
-covariates_binary <- c("is_prevalent", "is_incident")
-
-for (i in covariates_binary) {
+  # name of the dataset to be generated
+  namedataset <- "D4_prevalence_incidence"
   
-  cov <- seq(0,1)
-  probcov = runif(1, min = 0, max = 1)
-  totprob = sum(probcov)
-  probcov = c(probcov, 1 - totprob)
-  data[, cov := sample(cov, Npersons, replace = TRUE, prob = probcov)]
-  setnames(data,"cov",i)
+  set.seed(1234)
+  
+  # set number of persons
+  Npersons <- 5000
+  # create base
+  data <- data.table::data.table(person_id = as.character(sample(1:Npersons, Npersons, replace = TRUE)))
+  
+  # person_id 
+  data[, person_id := paste0("000000",person_id)]
+  data[, person_id := paste0("P",substr(person_id, nchar(person_id) - 6, 
+                                        nchar(person_id)))]
+  
+  # year
+  data[, year := as.character(sample(c(2016:2025), Npersons, replace = TRUE))]
+  
+  # drug
+  data[, drug:=k]
+  
+  # drug_names <- c("SGLT2i","GLP1RA","tirzepatide","DPP4i","DPP4i_SGLT2i",
+  #                 "other_combinations")
+  # 
+  # data[, drug:=sample(drug_names, Npersons, replace = T,
+  #                     prob = c(rep(1/length(drug_names), length(drug_names))))]
+  
+  # ASL
+  data[, ASL:=sample(c("CE", "NO", "SE"), Npersons, replace = TRUE, 
+                     prob = c(rep(0.33, 3)))]
+  
+  # prevalent/incident user
+  covariates_binary <- c("is_prevalent", "is_incident")
+  
+  for (i in covariates_binary) {
+    
+    cov <- seq(0,1)
+    # probcov = runif(1, min = 0, max = 1)
+    # totprob = sum(probcov)
+    # probcov = c(probcov, 1 - totprob)
+    data[, cov := sample(cov, Npersons, replace = TRUE, prob = c(0.2, 0.8))]
+    setnames(data,"cov",i)
+  }
+
+  # save
+  saveRDS(data, file = paste0(thisdir, "/", namedataset, "_", k, ".rds"))
+  
 }
 
+# denominator
+
+
+data <- data.table::data.table(year=as.character(rep((2016:2025), 3)), 
+                               ASL=rep(c("CE", "NO", "SE"), 10),
+                               pop18=sample(8000:10000, 30))
+
+namedataset <- "D4_pop_ASL"
+
 # save
-saveRDS(data, file = paste0(thisdir, "/", namedataset,".rds"))
+saveRDS(data, file = file.path(thisdir, paste0(namedataset, ".rds")))
+

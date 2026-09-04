@@ -47,16 +47,16 @@ plot_list <- list()
 for (i in seq_along(drug_names_s)) {
 
   p <- ggplot(get(paste0("D5_Figure_1_prevalence_incidence_", drug_names_s[i])), aes(x = factor(year), group = ASL)) +
-          # barra chiara = prevalent (sotto, più alta)
-          geom_col(aes(y = prevalent, fill = ASL),
+
+          geom_col(aes(y = prevalence, fill = ASL),
                    position = position_dodge(width = 0.9),
                    width = 0.85, alpha = 0.55, color = NA) +
-          # barra scura = incident (sopra, più bassa) - stessa dodge, stesso width
-          geom_col(aes(y = incident, fill = ASL),
+
+          geom_col(aes(y = incidence, fill = ASL),
                    position = position_dodge(width = 0.9),
                    width = 0.85, alpha = 1, color = NA, show.legend = FALSE) +
           scale_fill_manual(values = base_colors, name = NULL) +
-          labs(x = NULL, y = "Numero Totale di Utilizzatori",
+          labs(x = NULL, y = "Prevalenza e incidenza",
                title = paste0(LETTERS[i], ") ", drug_labels[i])) +
           theme_minimal() 
   

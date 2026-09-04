@@ -11,7 +11,7 @@ if (TEST){
   dir.create(thisdiroutput, showWarnings = F)
 }else{
   thisdirinput <- dirtemp
-  thisdiroutput <- dirtemp
+  thisdiroutput <- direxp
 }
 
 
@@ -58,8 +58,8 @@ for (i in var_selection) {
     
     tmp <- get(paste0("D3_selezione_coorte_", j))[, .(
       N = .N,
-      tmp_N = sum(get(i)==1, na.rm = T),
-      tmp_p = round(sum(get(i)==1, na.rm = T)/.N,3)*100)]
+      tmp_N = sum(get(i)==1 & get("is_prevalent")==0, na.rm = T),
+      tmp_p = round(sum(get(i)==1 & get("is_prevalent")==0, na.rm = T)/.N,3)*100)]
     
     setnames(tmp,"tmp_N",paste0(i, "_N"))
     setnames(tmp,"tmp_p",paste0(i, "_p"))

@@ -4,6 +4,11 @@
 
 # authors: Rosa Gini, Sabrina Giometto
 
+# v 1.3
+
+# fixed input from direxp
+
+
 # v 1.2
 
 # adapting to study on antidiabetics
@@ -32,7 +37,7 @@ if (TEST){
   thisdiroutput <- file.path(dirtest,testname,"g_output")
   dir.create(thisdiroutput, showWarnings = F)
 }else{
-  thisdirinput <- dirtemp
+  thisdirinput <- diexp
   thisdiroutput <- direxp
 }
 

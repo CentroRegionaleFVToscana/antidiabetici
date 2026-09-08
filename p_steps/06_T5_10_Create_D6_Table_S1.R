@@ -4,6 +4,11 @@
 
 # authors: Rosa Gini, Sabrina Giometto
 
+
+# v 1.0
+
+# fixed input from direxp
+
 # v 0.1
 
 # 28 Jul 2026
@@ -19,7 +24,7 @@ if (TEST){
   thisdiroutput <- file.path(dirtest,testname,"g_output")
   dir.create(thisdiroutput, showWarnings = F)
 }else{
-  thisdirinput <- dirtemp
+  thisdirinput <- direxp
   thisdiroutput <- direxp
 }
 

@@ -1,5 +1,9 @@
 # author: Rosa Gini
 
+# v 1.1 15 Sep 2026
+
+# aggiornato rischio CV (tolte anche cerebro, aop, HF) e creata nuova variabile Cvtotal
+
 # v 1.0 28 Aug 2026
 
 #########################################
@@ -94,15 +98,16 @@ for (i in thisdrug_names) {
 
   processing[, cerebro := fifelse(STROKE + TIA + carot  >= 1  , 1 , 0)]
   
-  # Cvrisk
-  
-  processing[, Cvrisk := fifelse((ateros + organdamage + Cvriskfactors) >= 1 & CV == 0 , 1 , 0)]
-  
+
   # renal
   
   processing[, renal := fifelse(RENDIS_Alg1 + RENDIS_Alg2 >= 1 , 1 , 0)]
   
+  # Cvrisk
   
+  processing[, Cvrisk := fifelse((ateros + organdamage + Cvriskfactors) >= 1 & (CV + cerebro + aop + HF) == 0 , 1 , 0)]
+  
+  processing[, Cvtotal := fifelse((ateros + organdamage + Cvriskfactors + CV + cerebro + aop + HF) >= 1 , 1 , 0)]
   
   
   # clean and save

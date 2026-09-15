@@ -128,13 +128,12 @@ for (k in drug_names) {
   j <- descriptive_N_perc(j, "sel_no_ASL_")
   
   # row 10
-  row_header_1 <- c(row_header_1, "Soggetti con nessuna dispensazione del farmaco di interesse precedente alla data indice")
-  j <- descriptive_N_perc(j, "is_prevalent_")
-  
-  # row 11
   row_header_1 <- c(row_header_1, "Totale soggetti inclusi nella coorte di studio")
   j <- descriptive_N_perc(j, "is_in_study_")
   
+  # row 11
+  row_header_1 <- c(row_header_1, "Soggetti con nessuna dispensazione del farmaco di interesse precedente alla data indice")
+  j <- descriptive_N_perc(j, "is_prevalent_")
   
 
   #########################################

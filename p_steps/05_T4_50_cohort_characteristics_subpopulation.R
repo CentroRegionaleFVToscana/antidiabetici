@@ -39,14 +39,25 @@ for (i in drug_names) {
 }
 
 for (j in drug_names) {
+  
+  D5_nocov <- get(paste0("D3_incidence_con_caratterizzazione_sottopop_CAP_", j))[, .(
+    N          = .N,
+    age_median = median(age),
+    age_q1 = quantile(age, probs = 0.25),
+    age_q3 = quantile(age, probs = 0.75),
+    Age_18_44_N = sum(ageband=="18-44"),
+    Age_18_44_p = round(sum(ageband=="18-44")/.N,3)*100,
+    Age_45_64_N = sum(ageband=="45-64"),
+    Age_45_64_p = round(sum(ageband=="45-64")/.N,3)*100),
+    .(period, ASL)]
 
   # create D5 with binary covariates
   
-  D5 <- NULL
+  D5_cov <- NULL
   
   for (i in covariates_binary_tab2) {
     
-    tmp <- data[, .(
+    tmp <- get(paste0("D3_incidence_con_caratterizzazione_sottopop_CAP_", j))[, .(
       N = .N,
       tmp_N = sum(get(i)==1),
       tmp_p = round(sum(get(i)==1)/.N,3)*100),
@@ -55,16 +66,19 @@ for (j in drug_names) {
     setnames(tmp,"tmp_N",paste0(i, "_N"))
     setnames(tmp,"tmp_p",paste0(i, "_p"))
       
-    if (is.null(D5)) {
+    if (is.null(D5_cov)) {
       
-      D5 <- tmp
+      D5_cov <- tmp
       
     } else {
       
-      D5 <- merge(D5, tmp, by = c("period", "ASL", "N"))
+      D5_cov <- merge(D5_cov, tmp, by = c("period", "ASL", "N"))
     }
       
   }
+  
+  # create the final D5 by merging the previous two
+  D5 <- merge(D5_nocov, D5_cov, by = c("period", "ASL", "N"), all = F)
   
   assign(paste0("D5_sottopop_CAP_",j), D5)
 

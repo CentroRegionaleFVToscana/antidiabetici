@@ -10,7 +10,7 @@ var_selection <- c("sel_data_incomplete", "sel_no_obs_periods",
                    "is_prevalent")
 
 covariates_binary_tab1 <- c("met", "antidiabother", "CV", "cerebro", "aop", 
-                            "HF", "Cvrisk", "CVtotal", "renal")
+                            "HF", "Cvrisk", "Cvtotal", "renal")
 
 covariates_binary_tab2 <- c("diab_gestaz", "diab_pregrav", "bmi_low", 
                             "bmi_medium", "bmi_high")

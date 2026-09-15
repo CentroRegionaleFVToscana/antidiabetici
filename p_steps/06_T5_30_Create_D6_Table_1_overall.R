@@ -4,6 +4,10 @@
 
 # authors: Rosa Gini, Sabrina Giometto
 
+# v 1.4
+
+# aggiunta CVtotal
+
 # v 1.3
 
 # fixed input from direxp
@@ -185,17 +189,24 @@ for (k in drug_names) {
   
   # row 18
   row_header_1 <- c(row_header_1,
-                    "Rischio CV elevato, n (%)")
-  
-  j <- descriptive_N_perc(j, "Cvrisk_")
-  
-  # row 19
-  row_header_1 <- c(row_header_1,
                     "Scompenso cardiaco, n (%)")
   
   j <- descriptive_N_perc(j, "HF_")
   
+  # row 19
+  row_header_1 <- c(row_header_1,
+                    "Rischio CV elevato, n (%)")
+  
+  j <- descriptive_N_perc(j, "Cvrisk_")
+  
   # row 20
+  row_header_1 <- c(row_header_1,
+                    "Rischio CV elevato o evento CV pregresso, n (%)")
+  
+  j <- descriptive_N_perc(j, "Cvtotal_")
+  
+  
+  # row 21
   row_header_1 <- c(row_header_1,
                     "Malattia renale cronica, n (%)")
   

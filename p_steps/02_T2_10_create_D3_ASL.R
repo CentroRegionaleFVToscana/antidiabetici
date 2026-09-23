@@ -22,8 +22,9 @@ if (TEST){
 
 processing <- fread(file.path(thisdirinput,"MISURE_TD.csv"))
 
-setnames(processing,c("id", "ini_record", "fine_record"),c("person_id", "start_d", "end_d"))
+setnames(processing,c("id", "datanas", "ini_record", "fine_record"),c("person_id", "birth_date","start_d", "end_d"))
 
+processing[, birth_date := ymd(birth_date)]
 processing[, start_d := ymd(start_d)]
 processing[, end_d := ymd(end_d)]
 

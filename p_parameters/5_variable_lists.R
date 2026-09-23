@@ -10,7 +10,8 @@ var_selection <- c("sel_data_incomplete", "sel_no_obs_periods",
                    "is_prevalent")
 
 covariates_binary_tab1 <- c("met", "antidiabother", "CV", "cerebro", "aop", 
-                            "HF", "Cvrisk", "Cvtotal", "renal")
+                            "HF", "Cvrisk", "Cvtotal", "renal", "study_drugs",
+                            "anyantidiab")
 
 covariates_binary_tab2 <- c("diab_gestaz", "diab_pregrav", "bmi_low", 
                             "bmi_medium", "bmi_high")
@@ -20,7 +21,8 @@ covariates_binary_tab2 <- c("diab_gestaz", "diab_pregrav", "bmi_low",
 codelists_variable_condition <- c("CV","cerebro","aop", "Cvrisk", "HF", "renal")
 variables_condition <- paste0("VAR_",codelists_variable_condition)
 
-codelists_variable_medication <- c("met", "antidiabother")
+codelists_variable_medication <- c("met", "antidiabother", "study_drugs",
+                                   "anyantidiab")
 variables_medication <- paste0("VAR_",codelists_variable_medication)
 
 variables <- c(variables_condition, variables_medication)

@@ -170,6 +170,20 @@ for (k in drug_names) {
   
   j <- descriptive_N_perc(j, "antidiabother_")
   
+  # row 13
+  row_header_1 <- c(row_header_1,
+                    "Uso di altro farmaco in studio nei 2 anni precedenti la 
+                    data indice, n (%)")
+  
+  j <- descriptive_N_perc(j, "study_drugs_")
+  
+  # row 13
+  row_header_1 <- c(row_header_1,
+                    "Uso di metformina/altro farmaco antidiabetico/altro farmaco
+                    in studio nei 2 anni precedenti la data indice, n (%)")
+  
+  j <- descriptive_N_perc(j, "anyantidiab_")
+  
   # row 14
   row_header_1 <- c(row_header_1,
                     "Comorbidità")

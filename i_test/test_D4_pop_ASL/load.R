@@ -30,7 +30,7 @@ listdates[["D3_PERSONS"]] <- c("birth_date", "death_date")
 
 listdates[["D3_OBSPERIODS"]] <- c("start_op", "end_op")
 
-listdates[["D3_ASL"]] <- c("start_d", "end_d")
+listdates[["D3_ASL"]] <- c("start_d", "end_d", "birth_date")
 
 listdates[["SGLT2i"]] <- c("DATE")
 

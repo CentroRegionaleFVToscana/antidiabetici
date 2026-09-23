@@ -41,7 +41,7 @@ if (TEST){
   thisdiroutput <- file.path(dirtest,testname,"g_output")
   dir.create(thisdiroutput, showWarnings = F)
 }else{
-  thisdirinput <- diexp
+  thisdirinput <- direxp
   thisdiroutput <- direxp
 }
 
@@ -302,9 +302,9 @@ for (k in drug_names) {
   fwrite(outputfile, file = file.path(thisdiroutput, paste0(nameoutput,"_", k,"_overall.csv")))
   # xls
   write_xlsx(outputfile, file.path(thisdiroutput, paste0(nameoutput,"_", k,"_overall.xlsx")))
-  # html
-  html_table <- kable(outputfile, format = "html", escape = FALSE) %>% kable_styling(full_width = F, bootstrap_options = c("striped", "hover"))
-  writeLines(html_table, file.path(thisdiroutput, paste0(nameoutput,"_", k,"_overall.html")))
+  # # html
+  # html_table <- kable(outputfile, format = "html", escape = FALSE) %>% kable_styling(full_width = F, bootstrap_options = c("striped", "hover"))
+  # writeLines(html_table, file.path(thisdiroutput, paste0(nameoutput,"_", k,"_overall.html")))
   # rtf
   doc <- read_docx() %>% body_add_table(outputfile, style = "table_template", header = F) %>% body_end_section_continuous()
   print(doc, target = file.path(thisdiroutput, paste0(nameoutput,"_", k,"_overall.docx")))

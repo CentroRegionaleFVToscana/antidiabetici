@@ -64,7 +64,7 @@ for (i in thisdrug_names) {
       temp <- unique(temp[,.(person_id, DATE)])
       temp <- temp[DATE >= study_start_date - 730,]
       temp <- merge(processing[,.(person_id, date_first)],temp, by = "person_id", all = F)
-      temp <- temp[DATE >= date_first - 730 & DATE <= date_first,]
+      temp <- temp[DATE >= date_first - 730 & DATE < date_first,]
       temp[, n := rowid(person_id)]
       temp <- temp[n == num,]
       temp[, temp := 1]
@@ -109,10 +109,15 @@ for (i in thisdrug_names) {
   
   processing[, Cvtotal := fifelse((ateros + organdamage + Cvriskfactors + CV + cerebro + aop + HF) >= 1 , 1 , 0)]
   
+  # anyantidiab
+  
+  
+  processing[, anyantidiab := fifelse((study_drugs + met + antidiabother) >= 1 , 1 , 0)]
+  
   
   # clean and save
   
-  tokeep <- c("person_id", "date_first", "period", "ASL", "age", "ageband", "genere", "met", "antidiabother", "IHD", "AMI", "bypass", "angioplastic", "STROKE", "TIA", "carot", "ateros", "organdamage", "age50plus", "dyslipidemia", "obesity", "hypertension", "smoking", "Cvriskfactors", "RENDIS_Alg1_1", "RENDIS_Alg1_2", "RENDIS_Alg1_3", "RENDIS_Alg1", "RENDIS_Alg2", "CV", "cerebro", "aop", "HF", "Cvrisk", "Cvtotal", "renal")
+  tokeep <- c("person_id", "date_first", "period", "ASL", "age", "ageband", "genere", "met", "antidiabother", "IHD", "AMI", "bypass", "angioplastic", "STROKE", "TIA", "carot", "ateros", "organdamage", "age50plus", "dyslipidemia", "obesity", "hypertension", "smoking", "Cvriskfactors", "RENDIS_Alg1_1", "RENDIS_Alg1_2", "RENDIS_Alg1_3", "RENDIS_Alg1", "RENDIS_Alg2", "CV", "cerebro", "aop", "HF", "Cvrisk", "Cvtotal", "renal", "anyantidiab")
 
   processing <- processing[, ..tokeep]
 

@@ -15,13 +15,15 @@ baselinedate <- 20151231
 
 # list of datasets
 
+
 conceptsets_med <- c("antidiabother","met","med_IHD", "med_dyslipidemia", "med_hypertension", "med_RENDIS_Alg1_1", "med_RENDIS_Alg1_2", "med_RENDIS_Alg1_3", "med_RENDIS_Alg2")
 
 conceptsets_dia <- c("dia_IHD", "dia_AMI", "dia_STROKE", "dia_TIA", "dia_aop", "dia_ateros", "dia_organdamage", "dia_dyslipidemia", "dia_obesity", "dia_hypertension", "dia_smoking", "dia_HF", "dia_RENDIS")
 
 conceptsets_proc <- c("proc_bypass", "proc_angioplasty", "proc_carot")
 
-listdatasetsRData <- c(conceptsets_med,conceptsets_dia,conceptsets_proc)
+listdatasetsRData <- c(conceptsets_med,conceptsets_dia,conceptsets_proc,"SGLT2i","GLP1RA","tirzepatide","DPP4i","DPP4i_SGLT2i",
+                       "other_combinations")
 
 listdatasets <- c("D3_incidence_SGLT2i",listdatasetsRData)
 

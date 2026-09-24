@@ -30,7 +30,7 @@ if (TEST){
 
 
 # load
-for (j in drug_names_s) {
+for (j in drug_names) {
 
   D5 <- read.csv(paste0(thisdirinput, "D5_Figure_1_prevalence_incidence_", j, ".csv"))
   D5 <- as.data.table(D5)

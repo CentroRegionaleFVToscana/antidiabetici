@@ -23,7 +23,7 @@ D4_pop_ASL <- readRDS(file.path(thisdirinput, "D4_pop_ASL.rds"))
 
 
 # load
-for (i in drug_names_s) {
+for (i in drug_names) {
   
   tab <- readRDS(paste0(thisdirinput, "D4_prevalence_incidence_", i, ".rds"))
   

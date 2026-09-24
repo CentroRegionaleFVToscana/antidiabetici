@@ -43,7 +43,7 @@ base_colors <- c("CE" = "#1f4e79",
                  "SE" = "#e07b00")
 
 drug_labels <- c("Inibitori SGLT2", "Agonisti recettoriali GLP-1",
-                 "Doppi antagonisti GIP/GLP-1", "Inibitori DPP-4", "Tirzepatide", "Altre combinazioni")
+                 "Tirzepatide", "Inibitori DPP-4", "Doppi antagonisti GIP/GLP-1",  "Altre combinazioni")
 
 # create plots
 plot_list <- list()
@@ -71,7 +71,7 @@ for (i in seq_along(drug_names)) {
 # save
 png(paste0(thisdiroutput, "/D6_Figure_1_prevalence_incidence.png"), width = 22, height = 12, units = "in", res = 300)
 
-ggarrange(plotlist = plot_list, ncol = 2, nrow = 3,
+ggarrange(plotlist = plot_list, ncol = 3, nrow = 2,
           common.legend = TRUE, legend = "bottom")
 
 dev.off()

@@ -46,7 +46,7 @@ processing <- processing[!is.na(ASL),]
     
 # clean and save
 
-tokeep <- c("person_id", "start_d", "end_d", "ASL")
+tokeep <- c("person_id", "start_d", "end_d", "ASL", "birth_date")
 
 processing <- processing[, ..tokeep]
 

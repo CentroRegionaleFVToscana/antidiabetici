@@ -29,13 +29,6 @@ name_codelist[["other_combinations"]] = "Altre associazioni precostituite"
 name_codelist[["met"]] = "Metformina"
 name_codelist[["antidiabother"]] = "Altri antidiabetici"
 
-# name_codelist[["CV"]] = "Malattia cardiovascolare"
-# name_codelist[["cerebro"]] = "Malattia cerebrovascolare"
-# name_codelist[["aop"]] = "Arteriopatia periferica"
-# name_codelist[["Cvrisk"]] = "Rischio CV elevato"
-# name_codelist[["HF"]] = "Scompenso cardiaco"
-# name_codelist[["renal"]] = "Malattia renale cronica"
-
 # codelists from Table 3 of the protocol
 
 name_codelist[["med_IHD"]] <- "Medicines contributing to the algorithm on IHD (Table 3 of the protocol)"
@@ -168,17 +161,6 @@ concept_set_codes_our_study[["proc_bypass"]][["ICD9PROC"]] <- c("36.10", "36.11"
 concept_set_codes_our_study[["proc_angioplasty"]][["ICD9PROC"]] <- c("00.66", "36.06", "36.07")
 concept_set_codes_our_study[["proc_carot"]][["ICD9PROC"]] <- c("00.61", "00.63")
 
-
-# concept_set_codes_our_study[["CV"]][["ICD9"]] = c("410", "411", "412", "413", "414", "36.10", "36.11", "36.12", "36.13", "36.14", "36.15", "36.16", "36.17", "36.18", "36.19", "00.66", "36.06", "36.07") # Malattia cardiovascolare
-# concept_set_codes_our_study[["cerebro"]][["ICD9"]] = c("430", "431", "432", "433.01", "433.11", "433.21", "433.31", "433.41", "433.51", "433.61", "433.71", "433.81", "433.91", "434.01", "434.11", "434.21", "434.31", "434.41", "434.51", "434.61", "434.71", "434.81", "434.91", "436", "435", "00.61", "00.63") # Malattia cerebrovascolare
-# concept_set_codes_our_study[["aop"]][["ICD9"]] = c("440.1", "440.2", "440.3", "440.8", "440.9") # Arteriopatia periferica
-# concept_set_codes_our_study[["Cvrisk"]][["ICD9"]] = c("440.0", "433.00", "433.10", "433.20", "433.30", "433.40", "433.50", "433.60", "433.70", "433.80", "433.90", "250.4", "362.0", "429.3") # Rischio CV elevato
-# concept_set_codes_our_study[["Cvrisk_combined_b"]][["ICD9"]] = c("272.0", "272.1", "272.3", "272.4") # Rischio CV elevato (fattore di rischio b.)
-# concept_set_codes_our_study[["Cvrisk_combined_c"]][["ICD9"]] = c("278.0", "278.1", "278.8", "649.1", "649.2", "V45.86") # Rischio CV elevato (fattore di rischio c.)
-# concept_set_codes_our_study[["Cvrisk_combined_d"]][["ICD9"]] = c("401", "402", "403", "404", "405", "362.11", "000") # Rischio CV elevato (fattore di rischio d.)
-# concept_set_codes_our_study[["Cvrisk_combined_e"]][["ICD9"]] = c("305.1") # Rischio CV elevato (fattore di rischio e.)
-# concept_set_codes_our_study[["HF"]][["ICD9"]] = c("428", "398.91", "402.01", "402.11", "402.91", "404.01", "404.03", "404.11", "404.13", "404.91", "404.93") # Scompenso cardiaco
-# concept_set_codes_our_study[["renal_alg2"]][["ICD9"]] = c("582.0", "582.1", "582.2", "582.3", "582.4", "582.5", "582.6", "582.7", "582.8", "582.9", "581", "753.1", "590.00", "590.01", "589.0", "585", "586") # Malattia renale cronica
 # 
 concept_set_codes_our_study[["met"]][["ATC"]] = "A10BA02" # metformina
 concept_set_codes_our_study[["antidiabother"]][["ATC"]] = c("A10") # altri farmaci antidiabetici

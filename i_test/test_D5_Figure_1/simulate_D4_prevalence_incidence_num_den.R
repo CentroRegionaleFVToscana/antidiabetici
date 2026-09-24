@@ -16,6 +16,8 @@ if (!require("truncnorm")) install.packages("truncnorm")
 library(truncnorm)
 
 
+drug_names <- c("SGLT2i","GLP1RA","tirzepatide","DPP4i","DPP4i_SGLT2i",
+                "other_combinations")
 # numerator
 
 for (k in drug_names) {
@@ -64,6 +66,10 @@ for (k in drug_names) {
     setnames(data,"cov",i)
   }
 
+  # aggregate
+  
+  data <- data[, .(is_prevalent = sum(is_prevalent), is_incident = sum(is_incident)), by = c("year", "ASL")]
+  
   # save
   saveRDS(data, file = paste0(thisdir, "/", namedataset, "_", k, ".rds"))
   

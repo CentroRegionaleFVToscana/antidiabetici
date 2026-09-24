@@ -1,5 +1,9 @@
 # author: Rosa Gini
 
+# v 1.2 24 Sep 2026
+
+# aggiunto uso di altri farmaci in studio e variabile sintetica su qualsiasi antidiabetico
+
 # v 1.1 15 Sep 2026
 
 # aggiornato rischio CV (tolte anche cerebro, aop, HF) e creata nuova variabile Cvtotal

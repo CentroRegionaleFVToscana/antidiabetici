@@ -43,14 +43,14 @@ base_colors <- c("CE" = "#1f4e79",
                  "SE" = "#e07b00")
 
 drug_labels <- c("Inibitori SGLT2", "Agonisti recettoriali GLP-1",
-                 "Doppi antagonisti GIP/GLP-1", "Inibitori DPP-4")
+                 "Doppi antagonisti GIP/GLP-1", "Inibitori DPP-4", "Tirzepatide", "Altre combinazioni")
 
 # create plots
 plot_list <- list()
 
-for (i in seq_along(drug_names_s)) {
+for (i in seq_along(drug_names)) {
 
-  p <- ggplot(get(paste0("D5_Figure_1_prevalence_incidence_", drug_names_s[i])), aes(x = factor(year), group = ASL)) +
+  p <- ggplot(get(paste0("D5_Figure_1_prevalence_incidence_", drug_names[i])), aes(x = factor(year), group = ASL)) +
 
           geom_col(aes(y = prevalence, fill = ASL),
                    position = position_dodge(width = 0.9),
@@ -60,7 +60,7 @@ for (i in seq_along(drug_names_s)) {
                    position = position_dodge(width = 0.9),
                    width = 0.85, alpha = 1, color = NA, show.legend = FALSE) +
           scale_fill_manual(values = base_colors, name = NULL) +
-          labs(x = NULL, y = "Prevalenza e incidenza",
+          labs(x = NULL, y = "Incidenza (in trasparenza: prevalenza)",
                title = paste0(LETTERS[i], ") ", drug_labels[i])) +
           theme_minimal() 
   
@@ -69,9 +69,9 @@ for (i in seq_along(drug_names_s)) {
 }
 
 # save
-png(paste0(thisdiroutput, "/D6_Figure_1_prevalence_incidence.png"), width = 15, height = 12, units = "in", res = 300)
+png(paste0(thisdiroutput, "/D6_Figure_1_prevalence_incidence.png"), width = 22, height = 12, units = "in", res = 300)
 
-ggarrange(plotlist = plot_list, ncol = 2, nrow = 2,
+ggarrange(plotlist = plot_list, ncol = 2, nrow = 3,
           common.legend = TRUE, legend = "bottom")
 
 dev.off()

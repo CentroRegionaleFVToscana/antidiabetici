@@ -19,7 +19,7 @@ baselinedate <- 20151231
 
 listdatasetsRData <- c()
 
-listdatasets <- c("D3_pop_SGLT2i",listdatasetsRData)
+listdatasets <- c("D3_pop_con_variabili_prevalenza_SGLT2i",listdatasetsRData)
 
 
 # dates variables 

@@ -16,7 +16,7 @@ baselinedate <- 20151231
 # list of datasets
 listdatasetsRData <- c("SGLT2i")
 
-listdatasets <- c("D3_pop_SGLT2i",listdatasetsRData)
+listdatasets <- c("D3_pop_SGLT2i","D3_ASL",listdatasetsRData)
 
 
 # dates variables 
@@ -25,6 +25,9 @@ listdates <- list()
 
 listdates[["D3_pop_SGLT2i"]] <- c("birth_date", "date_first", "end_study_op", "start_study_op")
 listdates[["SGLT2i"]] <- c("DATE")
+listdates[["D3_ASL"]] <- c("start_d","end_d")
+
+
 
 # date baseline
 

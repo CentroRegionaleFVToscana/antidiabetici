@@ -17,6 +17,9 @@ if (TEST){
 
 i <- "SGLT2i"
 
+asl <- readRDS(file = file.path(thisdirinput, "D3_ASL.rds"))
+
+
 for (i in thisdrug_names) {
   
   print(i)
@@ -53,6 +56,21 @@ for (i in thisdrug_names) {
     setnames(processing, c("in_", "is_prevalent_", "is_incident_"), paste0(c("in_", "is_prevalent_", "is_incident_"), year))
     
     medicines[, in_ := NULL]
+    
+    processing[, ref_date := ymd(paste0(year,"1231"))]
+    
+    processing <- asl[
+      processing,
+      on = .(
+        person_id,
+        start_d <= ref_date,
+        end_d >= ref_date
+      )  
+    ]
+    
+    processing[, c("start_d", "end_d") := NULL]  
+    
+    setnames(processing, c("ASL"), paste0(c("asl_"), year))
   }
   
   processing[, is_prevalent := NULL]

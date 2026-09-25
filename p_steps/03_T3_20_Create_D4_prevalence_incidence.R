@@ -1,6 +1,6 @@
 # author: Rosa Gini
 
-# v 1.0 24 Sep 2026
+# v 1.0 25 Sep 2026
 
 #########################################
 
@@ -17,6 +17,7 @@ if (TEST){
 }
 i <- "SGLT2i"
 
+
 for (i in thisdrug_names) {
   
   print(i)
@@ -27,20 +28,32 @@ for (i in thisdrug_names) {
 
   base <- CJ(year = 2016:2025,ASL = ASL)
   
-  processing <- readRDS(file.path(thisdirinput, paste0("D3_pop_", i, ".rds")))
+  processing <- readRDS(file.path(thisdirinput, paste0("D3_pop_con_variabili_prevalenza_", i, ".rds")))
 
+  years <- 2016:2025
   
+  results <- lapply(years, function(y) {
+    asl_col  <- paste0("asl_", y)
+    inc_col  <- paste0("is_incident_", y)
+    prev_col <- paste0("is_prevalent_", y)
+    
+    out <- processing[, .(
+      is_incident  = sum(get(inc_col), na.rm = TRUE),
+      is_prevalent = sum(get(prev_col), na.rm = TRUE)
+    ), by = .(asl = get(asl_col))]
+    
+    out[, year := y]
+    out
+  })
   
-  processing[, year := year(date_first)]
-  processing[, is_incident := 1 - is_prevalent]
+  processing <- rbindlist(results)
+  setcolorder(processing, c("asl", "year", "is_incident", "is_prevalent"))
   
-  # aggregate
-  
-  processing <- processing[, .(is_prevalent = sum(is_prevalent), is_incident = sum(is_incident)), by = c("year", "ASL")]
+  setnames(processing, "asl","ASL")
   
   #clean
   
-  processing <- merge(base,processing, by =  c("year", "ASL"), all = T)
+  processing <- merge(base,processing, by =  c("year", "ASL"), all.x = T)
   
   processing[is.na(is_prevalent), is_prevalent := 0]
   processing[is.na(is_incident), is_incident := 0]

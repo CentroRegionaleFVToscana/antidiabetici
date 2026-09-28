@@ -1,8 +1,12 @@
 
-# authors: Sabrina Giometto
+# authors: Sabrina Giometto, Rosa Gini
+
+# v 1.1 28 Sep
+
+# aggiunta Toscana
 
 
-# v 0.1
+# v 1.0
 
 # 21 Jul 2026
 
@@ -28,16 +32,27 @@ for (i in drug_names) {
   tab <- readRDS(paste0(thisdirinput, "D4_prevalence_incidence_", i, ".rds"))
   
  
-  # create frequency tables
-
-    
-  tab <- tab[, .(prevalent = sum(is_prevalent),
-                                 incident = sum(is_incident)), .(year, ASL)]
+  
+  # merge con popolazione  
   
   tab <- merge(tab, D4_pop_ASL, by = c("year", "ASL"), all = TRUE)
   
-  tab[, `:=`(prevalence=prevalent/pop18,
-             incidence=incident/pop18)]
+  # aggiunge totali
+  
+  toadd <- copy(tab)
+  toadd[, ASL := "Toscana"]
+  tab <- rbind(tab, toadd)
+  
+  
+  # crea frequenze
+  
+  tab <- tab[, .(prevalent = sum(is_prevalent),
+                 incident = sum(is_incident), 
+                 sumpop18 = sum(pop18)), .(year, ASL)]
+  
+  
+  tab[, `:=`(prevalence=prevalent/sumpop18,
+             incidence=incident/sumpop18)]
   
  
  

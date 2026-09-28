@@ -4,6 +4,10 @@
 # authors: Sabrina Giometto
 
 
+# v 1.1 28 Sep
+
+# aggiunta Toscana
+
 # v 1.0
 
 # fixed input from direxp
@@ -23,17 +27,25 @@ if (TEST){
   thisdirinput <- paste0(file.path(dirtest, testname), "/")
   thisdiroutput <- file.path(dirtest,testname,"g_output")
   dir.create(thisdiroutput, showWarnings = F)
+  thisdrug_names <- drug_names_s
+  thisdrug_labels <- c("Inibitori SGLT2", "Agonisti recettoriali GLP-1",
+                   "Tirzepatide", "Inibitori DPP-4")
+  
 }else{
   thisdirinput <- direxp
   thisdiroutput <- direxp
+  thisdrug_names <- drug_names
+  thisdrug_labels <- c("Inibitori SGLT2", "Agonisti recettoriali GLP-1",
+                       "Tirzepatide", "Inibitori DPP-4", "Doppi antagonisti GIP/GLP-1",  "Altre combinazioni")
 }
 
 
 # load
-for (j in drug_names) {
+for (j in thisdrug_names) {
 
   D5 <- read.csv(paste0(thisdirinput, "D5_Figure_1_prevalence_incidence_", j, ".csv"))
   D5 <- as.data.table(D5)
+  D5 <- D5[ASL != "Toscana",]
   assign(paste0("D5_Figure_1_prevalence_incidence_",j), D5)
 
 }
@@ -42,15 +54,13 @@ base_colors <- c("CE" = "#1f4e79",
                  "NO" = "#2e7d32",
                  "SE" = "#e07b00")
 
-drug_labels <- c("Inibitori SGLT2", "Agonisti recettoriali GLP-1",
-                 "Tirzepatide", "Inibitori DPP-4", "Doppi antagonisti GIP/GLP-1",  "Altre combinazioni")
 
 # create plots
 plot_list <- list()
 
-for (i in seq_along(drug_names)) {
+for (i in seq_along(thisdrug_names)) {
 
-  p <- ggplot(get(paste0("D5_Figure_1_prevalence_incidence_", drug_names[i])), aes(x = factor(year), group = ASL)) +
+  p <- ggplot(get(paste0("D5_Figure_1_prevalence_incidence_", thisdrug_names[i])), aes(x = factor(year), group = ASL)) +
 
           geom_col(aes(y = prevalence, fill = ASL),
                    position = position_dodge(width = 0.9),
@@ -61,7 +71,7 @@ for (i in seq_along(drug_names)) {
                    width = 0.85, alpha = 1, color = NA, show.legend = FALSE) +
           scale_fill_manual(values = base_colors, name = NULL) +
           labs(x = NULL, y = "Incidenza (in trasparenza: prevalenza)",
-               title = paste0(LETTERS[i], ") ", drug_labels[i])) +
+               title = paste0(LETTERS[i], ") ", thisdrug_labels[i])) +
           theme_minimal() 
   
   plot_list[[i]] <- p

@@ -7,17 +7,19 @@
 if (TEST){
   testname <- "test_D3_selezione_coorte_sottopop_CAP_nome_farmaco"
   thisdirinput <- file.path(dirtest,testname)
+  thisdircsv <- thisdirinput
   thisdiroutput <- file.path(dirtest,testname,"g_output")
   dir.create(thisdiroutput, showWarnings = F)
   thisdrug_names <- c("SGLT2i")
 }else{
   thisdirinput <- dirtemp
+  thisdircsv <- dirinput
   thisdiroutput <- dirtemp
   thisdrug_names <- drug_names
 }
 
 
-cap <- fread(file.path(thisdirinput,"SURVEY.csv"))
+cap <- fread(file.path(thisdircsv,"SURVEY.csv"))
 
 date_cols <- c("data")
 

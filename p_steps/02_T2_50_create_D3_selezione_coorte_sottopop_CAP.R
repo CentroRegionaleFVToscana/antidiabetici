@@ -39,8 +39,9 @@ for (i in thisdrug_names) {
   
   # load data
   
-  processing <- readRDS(file.path(thisdirinput, paste0("D3_incidence_", i, ".rds")))
+  input <- readRDS(file.path(thisdirinput, paste0("D3_incidence_con_caratterizzazione_", i, ".rds")))
   
+  processing <- copy(input)
   
   # merge with pregnancies
   
@@ -115,7 +116,15 @@ for (i in thisdrug_names) {
   
   # clean and save
   
-  tokeep <- c("person_id", "date_first", "period", "ASL", "diab_gestaz", "diab_pregrav", "bmi_low", "bmi_medium", "bmi_high")
+  var_car <- c("age", "ageband", "genere", "met", "antidiabother", "IHD", "AMI", "bypass", "angioplastic", "STROKE", "TIA", "carot", "ateros", "organdamage", "age50plus", "dyslipidemia", "obesity", "hypertension", "smoking", "Cvriskfactors", "RENDIS_Alg1_1", "RENDIS_Alg1_2", "RENDIS_Alg1_3", "RENDIS_Alg1", "RENDIS_Alg2", "CV", "cerebro", "aop", "HF", "Cvrisk", "Cvtotal", "renal", "study_drugs","anyantidiab")
+  
+  # tokeep <- c("person_id", var_car)
+  # 
+  # input <- input[, ..tokeep]
+  # 
+  # processing <- merge(processing, input, by = "person_id", all.x = T)
+  # 
+  tokeep <- c("person_id", "date_first", "period", "ASL", "diab_gestaz", "diab_pregrav", "bmi_low", "bmi_medium", "bmi_high", var_car)
 
   processing <- processing[, ..tokeep]
 

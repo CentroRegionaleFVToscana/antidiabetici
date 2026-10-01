@@ -21,14 +21,14 @@ listdatasetsRData <- c()
 
 listdatasetscsv <- c("SURVEY")
 
-listdatasets <- c("D3_incidence_SGLT2i",listdatasetsRData, listdatasetscsv)
+listdatasets <- c("D3_incidence_con_caratterizzazione_SGLT2i",listdatasetsRData, listdatasetscsv)
 
 # dates variables 
 
 listdates <- list()
 
 
-listdates[["D3_incidence_SGLT2i"]] <- c("birth_date",	"date_first",	"end_study_op", "start_study_op")
+listdates[["D3_incidence_con_caratterizzazione_SGLT2i"]] <- c("birth_date",	"date_first",	"end_study_op", "start_study_op")
 listdates[["SURVEY"]] <- c("data")
 
 
